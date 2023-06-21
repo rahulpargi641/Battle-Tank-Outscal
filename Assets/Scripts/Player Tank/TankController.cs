@@ -18,16 +18,19 @@ public class TankController
         this.tankView.tankController = this;
     }
 
-    public void MoveTank(float verticalMovement)
+    public void MoveTank(float yMovementInput)
     {
+        //float movementSpeed = tankModel.movementSpeed;
+        //rigidbody.velocity = tankView.transform.forward * yMovementInput * movementSpeed * Time.deltaTime;
+
         float movementSpeed = tankModel.movementSpeed;
-        rigidbody.velocity = tankView.transform.forward * verticalMovement * movementSpeed;
+        rigidbody.velocity = tankView.transform.forward * yMovementInput * movementSpeed;
     }
-    public void RotateTank(float yawRotatation)
+    public void RotateTank(float yawRotatationInput)
     {
         float rotateSpeed = tankModel.rotationSpeed;
-        Vector3 vector = new Vector3(0f, yawRotatation * rotateSpeed, 0f);
-        Quaternion deltaRotation = Quaternion.Euler(vector * Time.deltaTime);
+        Vector3 rotationAngle = new Vector3(0f, yawRotatationInput * rotateSpeed, 0f);
+        Quaternion deltaRotation = Quaternion.Euler(rotationAngle * Time.deltaTime);
         rigidbody.MoveRotation(rigidbody.rotation * deltaRotation);
     }
 }

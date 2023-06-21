@@ -383,7 +383,7 @@ GameObject:
   - component: {fileID: 4909727219952681070}
   - component: {fileID: 4909727219166177859}
   - component: {fileID: 4909727219166177857}
-  - component: {fileID: 8434849340486809763}
+  - component: {fileID: 2119064194872833542}
   m_Layer: 0
   m_Name: Tank
   m_TagString: Untagged
@@ -436,7 +436,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.71, y: 1.77, z: 2.38}
   m_Center: {x: 0, y: 0.73, z: 0}
---- !u!114 &8434849340486809763
+--- !u!114 &2119064194872833542
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -445,6 +445,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 4909727219953114510}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b754129ef538cb44981c403be1f2071f, type: 3}
+  m_Script: {fileID: 11500000, guid: f975630e2f54a8849a4130a1f39574d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
