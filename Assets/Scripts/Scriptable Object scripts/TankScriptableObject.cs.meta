@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: b581320c061d97840b16f4311abb9dc5
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - PlayerTankView: {fileID: 2119064194872833542, guid: e77079d96dd79c348ad2990a950ce6eb,
+      type: 3}
+  - EnemyTankView: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
