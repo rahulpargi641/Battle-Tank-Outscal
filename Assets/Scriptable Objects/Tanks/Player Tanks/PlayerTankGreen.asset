@@ -9,16 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b581320c061d97840b16f4311abb9dc5, type: 3}
-  m_Name: Red Tank
+  m_Script: {fileID: 11500000, guid: 867ee95bc18137342a55ebb61dfe197b, type: 3}
+  m_Name: PlayerTankGreen
   m_EditorClassIdentifier: 
-  TankType: 1
+  TankType: 2
+  BulletType: 2
+  Health: 150
   PlayerTankView: {fileID: 2119064194872833542, guid: e77079d96dd79c348ad2990a950ce6eb,
     type: 3}
-  EnemyTankView: {fileID: 1904914985273971516, guid: 1785807d08713ae4ca4560466b2109b2,
-    type: 3}
-  Health: 100
-  Damage: 100
-  MovementSpeed: 10
-  RotationSpeed: 10
-  BulletType: 0
+  MovementSpeed: 15
+  RotationSpeed: 15

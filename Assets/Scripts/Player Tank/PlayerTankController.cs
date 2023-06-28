@@ -3,7 +3,6 @@ using UnityEngine;
 public class PlayerTankController 
 {
     private PlayerTankModel tankModel;
-
     private PlayerTankView tankView;
 
     private Rigidbody rigidbody;
