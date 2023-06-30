@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerTankModel: TankModel
 {
     public PlayerTankController playerTankController { private get;  set; }
-    TankType tankType { get; }
+    //TankType tankType { get; }
     public float movementSpeed { get; }
     public float movementSpeedLive { get { return playerTankScriptableObject.MovementSpeed; } }
     public float rotationSpeed { get; }

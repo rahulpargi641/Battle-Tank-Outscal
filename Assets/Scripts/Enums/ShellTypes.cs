@@ -1,5 +1,5 @@
 ﻿
-public enum BulletTypes: short
+public enum ShellTypes: short
 {
     None, 
     Red,

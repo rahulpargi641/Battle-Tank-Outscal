@@ -6,12 +6,14 @@ public class PlayerTankController
     private PlayerTankView tankView;
 
     private Rigidbody rigidbody;
+    private AudioSource movementAudio;
 
     public PlayerTankController(PlayerTankModel tankModel, PlayerTankView tankView)
     {
         this.tankModel = tankModel;
         this.tankView = tankView;
-        rigidbody = this.tankView.rigidbody;
+        rigidbody = this.tankView.GetComponent<Rigidbody>();
+        movementAudio = this.tankView.m_MovementAudio;
 
         this.tankModel.playerTankController = this;
         this.tankView.playerTankController = this;

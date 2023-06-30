@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b6577194c37ed44f8e5f61c399a313f, type: 3}
   m_Name: EnemyTankSOList
   m_EditorClassIdentifier: 
-  EnemyTanks: []
+  EnemyTanks:
+  - {fileID: 11400000, guid: 74f42605e98811b46adc374da3ed2a56, type: 2}
+  - {fileID: 11400000, guid: a3bf0d0275dc9554388662b03fbffc77, type: 2}
+  - {fileID: 11400000, guid: b686816ac46925f49a747362375afb70, type: 2}

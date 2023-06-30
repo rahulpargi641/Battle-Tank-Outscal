@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64157dd7410c634498fc175adef4d019, type: 3}
   m_Name: EnemyTankBlue
   m_EditorClassIdentifier: 
-  TankType: 0
-  BulletType: 0
-  Health: 0
+  TankType: 3
+  BulletType: 3
+  Health: 30
+  EnemyTankView: {fileID: 1904914985273971516, guid: 1785807d08713ae4ca4560466b2109b2,
+    type: 3}

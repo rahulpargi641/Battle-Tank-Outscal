@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: PlayerTanksSOList
   m_EditorClassIdentifier: 
   PlayerTanks:
+  - {fileID: 11400000, guid: 55391914008341945a7904566c5d886b, type: 2}
   - {fileID: 11400000, guid: 21ebba281ab4733438bba37cc68992f8, type: 2}
   - {fileID: 11400000, guid: 173050c09672b4049a272aa462d83dc0, type: 2}
-  - {fileID: 11400000, guid: 55391914008341945a7904566c5d886b, type: 2}
