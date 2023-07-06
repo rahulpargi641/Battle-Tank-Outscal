@@ -8,6 +8,7 @@ public class EnemyTankService : MonoSingletonGeneric<EnemyTankService>
     [SerializeField] int numberOfTanks = 5; // Number of tanks to spawn
     [SerializeField] float spawningRange = 15f; // Radius within which tanks will be spawned
 
+    EnemyTankController enemyTankController;
 
     public List<EnemyTankController> CreateEnemyTanks()
     {
@@ -17,7 +18,7 @@ public class EnemyTankService : MonoSingletonGeneric<EnemyTankService>
             EnemyTankScriptableObject enemyTankScriptableObject = enemyTankSOList.EnemyTanks[0];
             EnemyTankModel enemyTankModel = new EnemyTankModel(enemyTankScriptableObject);
             EnemyTankView enemyTankView = SpawnRandomlyInsideSpehre(enemyTankScriptableObject);
-            EnemyTankController enemyTankController = new EnemyTankController(enemyTankModel, enemyTankScriptableObject.EnemyTankView);
+            enemyTankController = new EnemyTankController(enemyTankModel, enemyTankScriptableObject.EnemyTankView);
             spawnedEnemyControllers.Add(enemyTankController);
         }
         return spawnedEnemyControllers;
@@ -28,7 +29,7 @@ public class EnemyTankService : MonoSingletonGeneric<EnemyTankService>
         float randomXPos = UnityEngine.Random.Range(-spawningRange, spawningRange);
         float randomZPos = UnityEngine.Random.Range(-spawningRange, spawningRange);
         Vector3 randomPosition = new Vector3(transform.position.x + randomXPos, transform.position.y, transform.position.z + randomZPos);
-        EnemyTankView enemyTankView = Instantiate(tankScriptableObject.EnemyTankView, randomPosition, Quaternion.identity);
+        EnemyTankView enemyTankView = Instantiate(tankScriptableObject.EnemyTankView, randomPosition, Quaternion.identity); // put this line inside enemycontroller
         return enemyTankView;
     }
 }

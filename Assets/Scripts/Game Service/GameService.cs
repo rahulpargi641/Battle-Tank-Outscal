@@ -6,7 +6,7 @@ public class GameService : MonoSingletonGeneric<GameService>
     List<EnemyTankController> enemyTankControllers = new List<EnemyTankController>();
     private void Start()
     {
-        PlayerTankController playerTankController = PlayerTankService.Instance.CreatePlayerTank();
+        playerTankController = PlayerTankService.Instance.CreatePlayerTank();
         enemyTankControllers = EnemyTankService.Instance.CreateEnemyTanks();
     }
 }
