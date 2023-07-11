@@ -5,7 +5,7 @@ public class TankModel
 {
     public int Health { private set; get; }
     public TankType TankType { private set; get; }
-    public ShellTypes ShellType { private set; get; }
+    public ShellType ShellType { private set; get; }
 
     protected TankModel(TankScriptableObject tankScriptableObject)
     {

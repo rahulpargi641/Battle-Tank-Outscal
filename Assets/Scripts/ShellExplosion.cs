@@ -30,7 +30,7 @@ public class ShellExplosion : MonoBehaviour
 
             targetRigidbody.AddExplosionForce(m_ExplosionForce, transform.position, m_ExplosionRadius);
 
-            PlayerTankView targetHealth = targetRigidbody.GetComponent<PlayerTankView>();
+            HealthView targetHealth = targetRigidbody.GetComponent<HealthView>();
             // TankHealthController targetHealth = targetRidibody.GetComponent<PlayerTankView>();
 
             if (!targetHealth)

@@ -5,43 +5,27 @@ public class PlayerTankController
     private PlayerTankModel playerTankModel;
     private PlayerTankView playerTankView;
 
-    private ShootingController shootingController;
-
-    private Rigidbody rigidbody;
-    private float moveSpeed;
-
-    private bool m_Fired;
-
     public PlayerTankController(PlayerTankModel playerTankModel, PlayerTankView playerTankView)
     {
         this.playerTankModel = playerTankModel;
         this.playerTankView = playerTankView;
 
         playerTankModel.PlayerTankController = this;
-        playerTankView.playerMainTankController = this;
-
-        shootingController = new ShootingController();
-
-        InitializeMemberVariables();
-    }
-
-    private void InitializeMemberVariables()
-    {
-        rigidbody = playerTankView.Rigidbody;
-        moveSpeed = playerTankModel.MoveSpeed;
+        playerTankView.PlayerTankController = this;
     }
 
     public void MoveTank(float movementInput)
     {
-        Vector3 movement = playerTankView.transform.forward * movementInput * moveSpeed * Time.deltaTime;
-        rigidbody.MovePosition(rigidbody.position + movement); // moves to the absolute position you give it
+
+        Vector3 movement = playerTankView.transform.forward * movementInput * playerTankModel.MoveSpeed * Time.deltaTime;
+        playerTankView.Rigidbody.MovePosition(playerTankView.Rigidbody.position + movement); // moves to the absolute position you give it
     }
 
     public void TurnTank(float turnInputValue)
     {
         float turn = turnInputValue * playerTankModel.TurnSpeed * Time.deltaTime;
         Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
-        rigidbody.MoveRotation(rigidbody.rotation * turnRotation);
+        playerTankView.Rigidbody.MoveRotation(playerTankView.Rigidbody.rotation * turnRotation);
     }
 
 
