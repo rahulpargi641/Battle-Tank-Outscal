@@ -8,7 +8,7 @@ public class ShootingModel
     public float CurrentLaunchForce { get; set; }
     public float ChargeSpeed { get; set; }
     public bool Fired { get; set; }
-
+    public int NSHotsFired { get; set; }
     public ShootingModel()
     {
         MinLaunchForce = 15f;

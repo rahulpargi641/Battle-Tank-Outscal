@@ -28,26 +28,6 @@ public class PlayerTankController
         playerTankView.Rigidbody.MoveRotation(playerTankView.Rigidbody.rotation * turnRotation);
     }
 
-
-    public void Update()
-    {
-
-    }
-    //public void Fire()
-    //{
-    //    m_Fired = true;
-
-    //    Rigidbody shellInstance = GameObject.Instantiate(playerTankView.m_Shell, playerTankView.m_FireTransform.position, playerTankView.m_FireTransform.rotation) as Rigidbody;
-    //    shellInstance.velocity = playerTankView.m_CurrentLaunchForce * playerTankView.m_FireTransform.forward;
-
-    //    playerTankView.m_ShootingAudio.clip = playerTankView.m_FireClip;
-    //    playerTankView.m_ShootingAudio.Play();
-
-    //    m_CurrentLaunchForce = m_MinLaunchForce;
-    //}
-
-  
-
     //public void RotateTank(float yawRotatationInput)
     //{
     //    float rotateSpeed = tankModel.turnSpeed;

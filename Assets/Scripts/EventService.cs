@@ -1,21 +1,20 @@
 using System;
 
-
 public class EventService : MonoSingletonGeneric<EventService>
 {
-    public event Action onShotsFiredAction;
-    public event Action onEnemyDeathAction;
+    public event Action<int> onShotsFiredAction;
+    public event Action<int> onEnemyDeathAction;
     public event Action onPlayerDeathAction;
     //public event Action<ParticleEffectType, Vector3> onGameObjectDestroyed;
   
-    public void OnShotsFiredAction(string nShotsFiredText)
+    public void InvokeShotsFiredAction(int nShotsFired)
     {
-        onShotsFiredAction?.Invoke();
+        onShotsFiredAction?.Invoke(nShotsFired);
     }
 
-    public void OnEnemyDeathAction(string nEnemiesKilledText)
+    public void InvokeEnemyDeathAction(int nEnemiesDestroyed)
     {
-        onEnemyDeathAction?.Invoke();
+        onEnemyDeathAction?.Invoke(nEnemiesDestroyed);
     }
 
     internal void OnPlayerDeathAction()

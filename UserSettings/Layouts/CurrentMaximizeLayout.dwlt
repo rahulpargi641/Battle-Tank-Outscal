@@ -61,7 +61,7 @@ MonoBehaviour:
   m_ShowGizmos: 0
   m_TargetDisplay: 0
   m_ClearColor: {r: 0, g: 0, b: 0, a: 0}
-  m_TargetSize: {x: 952.75, y: 416.99997}
+  m_TargetSize: {x: 741, y: 416.99997}
   m_TextureFilterMode: 0
   m_TextureHideFlags: 61
   m_RenderIMGUI: 1
@@ -70,14 +70,14 @@ MonoBehaviour:
   m_VSyncEnabled: 0
   m_Gizmos: 0
   m_Stats: 0
-  m_SelectedSizes: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
+  m_SelectedSizes: 01000000000000000000000000000000000000000000000000000000000000000000000000000000
   m_ZoomArea:
     m_HRangeLocked: 0
     m_VRangeLocked: 0
     hZoomLockedByDefault: 0
     vZoomLockedByDefault: 0
-    m_HBaseRangeMin: -381.1
-    m_HBaseRangeMax: 381.1
+    m_HBaseRangeMin: -296.4
+    m_HBaseRangeMax: 296.4
     m_VBaseRangeMin: -166.79999
     m_VBaseRangeMax: 166.79999
     m_HAllowExceedBaseRangeMin: 1
@@ -391,7 +391,7 @@ MonoBehaviour:
       floating: 0
       collapsed: 0
       displayed: 0
-      snapOffset: {x: 0, y: 0}
+      snapOffset: {x: 0, y: 24.8}
       snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
       id: Scene View/Particles
@@ -451,9 +451,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 0, y: 0.75121224, z: 0.6161232}
+    m_Target: {x: -9.720898, y: -1.0187926, z: 4.833125}
     speed: 2
-    m_Value: {x: 0, y: 0.75121224, z: 0.6161232}
+    m_Value: {x: -9.720898, y: -1.0187926, z: 4.833125}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -500,13 +500,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.14845459, y: -0.3289699, z: 0.052442726, w: 0.9311558}
+    m_Target: {x: 0.183887, y: 0.042149894, z: -0.007901819, w: 0.98208535}
     speed: 2
-    m_Value: {x: 0.14845005, y: -0.32895982, z: 0.05244112, w: 0.93112725}
+    m_Value: {x: 0.18387368, y: 0.04214684, z: -0.007901247, w: 0.9820142}
   m_Size:
-    m_Target: 8.142577
+    m_Target: 9.358465
     speed: 2
-    m_Value: 8.142577
+    m_Value: 9.358465
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -611,7 +611,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 1773
+  controlID: 17704
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -670,9 +670,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 92f5ffff
-      m_LastClickedID: -2670
-      m_ExpandedIDs: fefaffff
+      m_SelectedIDs: eef5ffff
+      m_LastClickedID: -2578
+      m_ExpandedIDs: fefafffff4fffffffa6200007263000098630000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -764,22 +764,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts/Player Tank
+    - Assets/Scripts/UI
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Scripts/Player Tank
+  - Assets/Scripts/UI
   m_LastFoldersGridSize: 16
   m_LastProjectPath: D:\Unity Game Development\Outscal\battle-tank-game
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 168.6}
-    m_SelectedIDs: 0c6d0000
-    m_LastClickedID: 27916
-    m_ExpandedIDs: 00000000b06a0000b26a0000b46a0000b66a0000b86a000000ca9a3b
+    scrollPos: {x: 0, y: 244.6}
+    m_SelectedIDs: c26d0000
+    m_LastClickedID: 28098
+    m_ExpandedIDs: 00000000986d0000ba6d000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -807,7 +807,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000b06a0000b26a0000b46a0000b66a0000b86a000000ca9a3b
+    m_ExpandedIDs: 00000000986d000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -832,8 +832,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 92f5ffff
-    m_LastClickedInstanceID: -2670
+    m_SelectedInstanceIDs: eef5ffff
+    m_LastClickedInstanceID: -2578
     m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: 
     m_RenameOverlay:
@@ -887,7 +887,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 1760
+  controlID: 17681
 --- !u!114 &14
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -951,7 +951,7 @@ MonoBehaviour:
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
   m_LastInspectedObjectInstanceID: -1
-  m_LastVerticalScrollValue: 648
+  m_LastVerticalScrollValue: 0
   m_GlobalObjectId: 
   m_InspectorMode: 0
   m_LockTracker:
@@ -1005,8 +1005,8 @@ MonoBehaviour:
     y: 387.2
     width: 368
     height: 383.59998
-  m_MinSize: {x: 276, y: 121}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 275, y: 100}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 18}
   m_Panes:
   - {fileID: 18}
@@ -1041,8 +1041,7 @@ MonoBehaviour:
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
     m_SaveData: []
-  m_ObjectsLockedBeforeSerialization:
-  - {fileID: 11400000, guid: 55391914008341945a7904566c5d886b, type: 2}
+  m_ObjectsLockedBeforeSerialization: []
   m_InstanceIDsLockedBeforeSerialization: 
   m_PreviewResizer:
     m_CachedPref: 151
@@ -1053,5 +1052,5 @@ MonoBehaviour:
   m_GlobalObjectId: 
   m_InspectorMode: 0
   m_LockTracker:
-    m_IsLocked: 1
+    m_IsLocked: 0
   m_PreviewWindow: {fileID: 0}

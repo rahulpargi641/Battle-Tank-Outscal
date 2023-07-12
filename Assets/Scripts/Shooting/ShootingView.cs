@@ -3,10 +3,12 @@ using UnityEngine.UI;
 
 public class ShootingView : MonoBehaviour
 {
-    ShootingModel shootingModel;
     public Rigidbody m_Shell;
     public Transform m_FireTransform;
     public Slider m_AimSlider;
+
+    private ShootingModel shootingModel;
+
 
     private void OnEnable()
     {
@@ -72,5 +74,8 @@ public class ShootingView : MonoBehaviour
         AudioService.Instance.PlayShotFiringSound();
 
         shootingModel.CurrentLaunchForce = shootingModel.MinLaunchForce;
+
+        shootingModel.NSHotsFired++;
+        AchievementService.Instance.ShotFired();
     }
 }
