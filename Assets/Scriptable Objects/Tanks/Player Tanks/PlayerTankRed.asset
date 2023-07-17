@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 867ee95bc18137342a55ebb61dfe197b, type: 3}
+  m_Name: PlayerTankRed
+  m_EditorClassIdentifier: 
+  TankType: 1
+  BulletType: 1
+  Health: 200
+  PlayerTankView: {fileID: 2119064194872833542, guid: e77079d96dd79c348ad2990a950ce6eb,
+    type: 3}
+  MovementSpeed: 8
+  RotationSpeed: 8

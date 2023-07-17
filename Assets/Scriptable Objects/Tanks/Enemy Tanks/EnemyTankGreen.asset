@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64157dd7410c634498fc175adef4d019, type: 3}
+  m_Name: EnemyTankGreen
+  m_EditorClassIdentifier: 
+  TankType: 2
+  BulletType: 2
+  Health: 40
+  EnemyTankView: {fileID: 1904914985273971516, guid: 1785807d08713ae4ca4560466b2109b2,
+    type: 3}
