@@ -5,11 +5,12 @@ public class MonoSingletonGeneric<T> : MonoBehaviour where T: MonoSingletonGener
     private static T instance;
     public static T Instance { get { return instance; } }
 
-    private void Awake()
+    protected virtual void Awake()
     {
         if(instance == null)
         {
             instance = (T)this;
+            //instance = this as T;
             DontDestroyOnLoad(gameObject);
         }
         else

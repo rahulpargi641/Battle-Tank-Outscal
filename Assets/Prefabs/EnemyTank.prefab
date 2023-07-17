@@ -384,7 +384,8 @@ GameObject:
   - component: {fileID: 4909727219166177859}
   - component: {fileID: 4909727219166177857}
   - component: {fileID: 1904914985273971516}
-  - component: {fileID: 586737446639485778}
+  - component: {fileID: 2132251007}
+  - component: {fileID: 2132251002}
   m_Layer: 8
   m_Name: EnemyTank
   m_TagString: Untagged
@@ -455,7 +456,21 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 128
---- !u!195 &586737446639485778
+  pathUpdateDelay: 0.2
+--- !u!135 &2132251007
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4909727219953114510}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 15
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!195 &2132251002
 NavMeshAgent:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -465,11 +480,11 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3
+  m_Speed: 4
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 80
-  m_StoppingDistance: 0
+  m_StoppingDistance: 8
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1

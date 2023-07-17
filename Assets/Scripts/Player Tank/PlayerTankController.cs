@@ -1,34 +1,38 @@
 using UnityEngine;
 
-public class PlayerTankController 
+public class PlayerTankController
 {
-    private PlayerTankModel tankModel;
-    private PlayerTankView tankView;
+    private PlayerTankModel playerTankModel;
+    private PlayerTankView playerTankView;
 
-    private Rigidbody rigidbody;
-    private AudioSource movementAudio;
-
-    public PlayerTankController(PlayerTankModel tankModel, PlayerTankView tankView)
+    public PlayerTankController(PlayerTankModel playerTankModel, PlayerTankView playerTankView)
     {
-        this.tankModel = tankModel;
-        this.tankView = tankView;
-        rigidbody = this.tankView.GetComponent<Rigidbody>();
-        movementAudio = this.tankView.m_MovementAudio;
+        this.playerTankModel = playerTankModel;
+        this.playerTankView = playerTankView;
 
-        this.tankModel.playerTankController = this;
-        this.tankView.playerTankController = this;
+        playerTankModel.PlayerTankController = this;
+        playerTankView.PlayerTankController = this;
     }
 
-    public void MoveTank(float yMovementInput)
+    public void MoveTank(float movementInput)
     {
-        float movementSpeed = tankModel.movementSpeed;
-        rigidbody.velocity = tankView.transform.forward * yMovementInput * movementSpeed;
+
+        Vector3 movement = playerTankView.transform.forward * movementInput * playerTankModel.MoveSpeed * Time.deltaTime;
+        playerTankView.Rigidbody.MovePosition(playerTankView.Rigidbody.position + movement); // moves to the absolute position you give it
     }
-    public void RotateTank(float yawRotatationInput)
+
+    public void TurnTank(float turnInputValue)
     {
-        float rotateSpeed = tankModel.rotationSpeed;
-        Vector3 rotationAngle = new Vector3(0f, yawRotatationInput * rotateSpeed, 0f);
-        Quaternion deltaRotation = Quaternion.Euler(rotationAngle * Time.deltaTime);
-        rigidbody.MoveRotation(rigidbody.rotation * deltaRotation);
+        float turn = turnInputValue * playerTankModel.TurnSpeed * Time.deltaTime;
+        Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
+        playerTankView.Rigidbody.MoveRotation(playerTankView.Rigidbody.rotation * turnRotation);
     }
+
+    //public void RotateTank(float yawRotatationInput)
+    //{
+    //    float rotateSpeed = tankModel.turnSpeed;
+    //    Vector3 rotationAngle = new Vector3(0f, yawRotatationInput * rotateSpeed, 0f);
+    //    Quaternion deltaRotation = Quaternion.Euler(rotationAngle * Time.deltaTime);
+    //    rigidbody.MoveRotation(rigidbody.rotation * deltaRotation);
+    //}
 }

@@ -8,10 +8,18 @@ public class EnemyTankView : MonoBehaviour
     Rigidbody rigidbody;
 
     NavMeshAgent navMeshAgent;
+    private Transform target;
+    private float shootingDistance;
     [SerializeField] LayerMask groundLayer, playerLayer;
     Vector3 randomDestinationPos;
     bool isWalkPointSet;
     float range = 200f;
+
+    public float pathUpdateDelay = 0.2f;
+    float pathUpdateDeadline;
+
+    bool playerFound = false;
+
 
     private void Awake()
     {
@@ -19,9 +27,52 @@ public class EnemyTankView : MonoBehaviour
         navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
+    private void Start()
+    {
+        shootingDistance = navMeshAgent.stoppingDistance;
+    }
+
     private void Update()
     {
+        if(!playerFound)
         Patrol();
+
+        if (target != null)
+        {
+            bool inRange = Vector3.Distance(transform.position, target.position) <= shootingDistance;
+
+            if(inRange)
+            {
+                LookAtTarget();
+            }
+            else
+            {
+                UpdatePath();
+            }
+        }
+        else
+        {
+            
+
+        }
+    }
+
+    private void UpdatePath()
+    {
+        if(Time.time >= pathUpdateDeadline)
+        {
+            Debug.Log("Updating path");
+            pathUpdateDeadline = Time.time + pathUpdateDelay;
+            navMeshAgent.SetDestination(target.position);
+        }
+    }
+
+    private void LookAtTarget()
+    {
+        Vector3 lookPos = target.position - transform.position;
+        lookPos.y = 0;
+        Quaternion rotation = Quaternion.LookRotation(lookPos);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 0.2f);
     }
 
     void Patrol()
@@ -39,5 +90,15 @@ public class EnemyTankView : MonoBehaviour
         randomDestinationPos = new Vector3(transform.position.x + x, transform.position.y, transform.position.z + z);
         if (Physics.Raycast(randomDestinationPos, Vector3.down, groundLayer))
         { isWalkPointSet = true; }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.GetComponent<PlayerTankView>())
+        {
+            playerFound = true;
+            target = other.transform;
+            Debug.Log("Found Player");
+        }
     }
 }

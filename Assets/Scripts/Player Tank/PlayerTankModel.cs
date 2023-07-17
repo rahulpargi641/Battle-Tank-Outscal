@@ -2,18 +2,19 @@ using UnityEngine;
 
 public class PlayerTankModel: TankModel
 {
-    public PlayerTankController playerTankController { private get;  set; }
+    public PlayerTankController PlayerTankController { private get;  set; }
     //TankType tankType { get; }
-    public float movementSpeed { get; }
-    public float movementSpeedLive { get { return playerTankScriptableObject.MovementSpeed; } }
-    public float rotationSpeed { get; }
-    public int damage { get; }
+    public float MoveSpeed { get; }
+    public float MovementSpeedLive { get { return playerTankScriptableObject.MoveSpeed; } }
+    public float TurnSpeed { get; }
+    public int Damage { get; }
 
-    PlayerTankScriptableObject playerTankScriptableObject;
+
+    private PlayerTankScriptableObject playerTankScriptableObject;
     public PlayerTankModel(PlayerTankScriptableObject playerTankScriptableObject) : base(playerTankScriptableObject)
     {
         this.playerTankScriptableObject = playerTankScriptableObject;
-        this.movementSpeed = playerTankScriptableObject.MovementSpeed;
-        this.rotationSpeed = playerTankScriptableObject.RotationSpeed;
+        this.MoveSpeed = playerTankScriptableObject.MoveSpeed;
+        this.TurnSpeed = playerTankScriptableObject.turnSpeed;
     }
 }

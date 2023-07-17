@@ -426,7 +426,7 @@ GameObject:
   - component: {fileID: 6974899829627792492}
   - component: {fileID: 6974899829627792493}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Player Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -637,14 +637,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5431899443489686253}
-  - component: {fileID: 5033558682442689620}
   - component: {fileID: 6974899829794256485}
   - component: {fileID: 6974899828542798401}
   - component: {fileID: 6974899829794256486}
   - component: {fileID: 6068508028760871704}
   - component: {fileID: 6974899829794256480}
-  - component: {fileID: 8359603809864896545}
-  - component: {fileID: 7770445276888575157}
   m_Layer: 7
   m_Name: Cartoon Tank Blue
   m_TagString: Untagged
@@ -672,19 +669,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &5033558682442689620
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7423745020318913527}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 1.8551579, y: 1.5079628, z: 2.1960933}
-  m_Center: {x: -0.033079505, y: 0.11, z: -0.095996976}
 --- !u!54 &6974899829794256485
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -918,44 +902,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f975630e2f54a8849a4130a1f39574d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PlayerNumber: 1
-  m_Speed: 12
-  m_TurnSpeed: 90
   m_MovementAudio: {fileID: 6974899829794256486}
   m_EngineIdling: {fileID: 8300000, guid: 4932ab25b84dd7649b80af68a9660ddc, type: 3}
   m_EngineDriving: {fileID: 8300000, guid: d7ca9fb5aa30155449192b23d7fb3336, type: 3}
   m_PitchRange: 0.2
---- !u!114 &8359603809864896545
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7423745020318913527}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 906a140033131de4aae5ab47ab5f64e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_StartingHealth: 100
-  m_Slider: {fileID: 6974899829288640584}
-  m_FillImage: {fileID: 6974899830440587363}
-  m_FullHealthColor: {r: 0, g: 0.7552595, b: 1, a: 1}
+  m_HealthSlider: {fileID: 6974899829288640584}
+  m_HealthFillImage: {fileID: 6974899830440587363}
+  m_FullHealthColor: {r: 0.15614095, g: 0.51704514, b: 0.8113208, a: 1}
   m_ZeroHealthColor: {r: 1, g: 0, b: 0, a: 1}
   m_ExplosionPrefab: {fileID: 151086, guid: ee49a9a8678ecf8468eb488e1ac8d42b, type: 3}
---- !u!114 &7770445276888575157
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7423745020318913527}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 830184468ddf4544c8c56499c0b3fb3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_PlayerNumber: 1
   m_Shell: {fileID: 4072476765267915353, guid: 342119008e3900847aa00d49f47a1def, type: 3}
   m_FireTransform: {fileID: 5548341759291619145}
   m_AimSlider: {fileID: 2267667872923856614}
