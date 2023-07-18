@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnvironmentService : MonoSingletonGeneric<EnvironmentService>
 {
-    [SerializeField] List<Transform> patrolPoints;
+   [SerializeField] List<Transform> patrolPoints;
 
     public List<Transform> PatrolPoints => patrolPoints; // lamda expression
 

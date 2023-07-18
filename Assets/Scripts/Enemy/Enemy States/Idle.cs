@@ -1,11 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class Idle : State
 {
-    public Idle(GameObject npc, NavMeshAgent navMeshAgent, Animator animator, Transform playerTransform) : base(npc, navMeshAgent, animator, playerTransform)
+    public Idle(GameObject npcGO, NavMeshAgent navMeshAgent, Animator animator, Transform playerTransform) 
+        : base(npcGO, navMeshAgent, animator, playerTransform)
     {
         state = EState.Idle;
     }
@@ -19,10 +18,14 @@ public class Idle : State
     public override void Update()
     {
         //base.Update();
-
-        if (Random.Range(0,100) < 10)
+        if(CanSeePlayer())
         {
-            nextState = new Patrol(npc, navMeshAgent, animator, playerTransform);
+            nextState = new Pursue(npcGO, navMeshAgent, animator, playerTransform);
+            stage = EStage.Exit;
+        }
+        else if (Random.Range(0,100) < 10)
+        {
+            nextState = new Patrol(npcGO, navMeshAgent, animator, playerTransform);
             stage = EStage.Exit;
         }
     }

@@ -1,10 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public enum EState
-{ Idle, Patrol, Pursue, Attack };
+{ 
+    Idle, Patrol, Pursue, Attack 
+};
 
 public enum EStage
 {
@@ -15,19 +15,19 @@ public class State
 {
     public EState state;
     protected EStage stage;
-    protected GameObject npc;
+    protected GameObject npcGO;
     protected NavMeshAgent navMeshAgent;
     protected Animator animator;
     protected Transform playerTransform;
     protected State nextState;
 
-    float visDist = 10.0f;
-    float visAngle = 30.0f;
-    float shootDist = 7.0f;
+    float visibleDist = 20.0f; // 10f
+    float visibleAngle = 90.0f; // 30f
+    float shootDist = 15.0f; // 7f
 
-    public State(GameObject npc, NavMeshAgent navMeshAgent, Animator animator, Transform playerTransform)
+    public State(GameObject npcGO, NavMeshAgent navMeshAgent, Animator animator, Transform playerTransform)
     {
-        this.npc = npc;
+        this.npcGO = npcGO;
         this.navMeshAgent = navMeshAgent;
         this.animator = animator;
         this.playerTransform = playerTransform;
@@ -48,5 +48,25 @@ public class State
             return nextState;
         }
         return this; // we keep returning the same state
+    }
+
+    public bool CanSeePlayer()
+    {
+        Vector3 playerDirection = playerTransform.position - npcGO.transform.position;
+        float facingAngle = Vector3.Angle(playerDirection, npcGO.transform.forward);
+
+        if (playerDirection.magnitude < visibleDist && facingAngle < visibleAngle)
+            return true;
+        else
+            return false;
+    }
+
+    public bool CanAttackPlayer()
+    {
+        Vector3 playerDirection = playerTransform.position - npcGO.transform.position;
+        if (playerDirection.magnitude < shootDist)
+            return true;
+        else
+            return false;
     }
 }
