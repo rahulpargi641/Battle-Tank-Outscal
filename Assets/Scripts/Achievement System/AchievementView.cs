@@ -7,7 +7,6 @@ public class AchievementView : MonoBehaviour
    public AchievementView(AchievementModel achievementModel)
     {
         this.achievementModel = achievementModel;
-        Debug.Log("Acheivement View Created");
     }
 
     public void ShotFired()

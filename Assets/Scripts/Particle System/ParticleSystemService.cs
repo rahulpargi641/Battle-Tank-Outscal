@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class ParticleService : MonoSingletonGeneric<ParticleService>
+public class ParticleSystemService : MonoSingletonGeneric<ParticleSystemService>
 {
-    [SerializeField] ParticleSystemBox[] particleSystemBoxes;
+    [SerializeField] ParticleBox[] particleSystemBoxes;
     private ParticleSystemController particleSystemController;
 
     private void Start()
@@ -11,8 +11,8 @@ public class ParticleService : MonoSingletonGeneric<ParticleService>
         particleSystemController = new ParticleSystemController(particleSystemModel);
     }
 
-    public void HandleParticleEvent(ParticleEvent particleEvent)
+    public void SpawnParticles(ParticleEvent particleEvent)
     {
-        particleSystemController.SpawnParticles(particleEvent);
+        particleSystemController.HandleParticleEvent(particleEvent);
     }
 }

@@ -39,6 +39,11 @@ public class AudioService : MonoSingletonGeneric<AudioService>
         audioController.PlayShootingSound(SoundType.ShotFiring);
     }
 
+    public void PlayShellExplosionSound()
+    {
+        audioController.PlayShellExplosionSound();
+    }
+
 
     public void Mute(bool status)
     {

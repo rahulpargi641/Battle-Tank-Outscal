@@ -1,13 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class ParticleSystemModel
 {
-    public ParticleSystemBox[] particleSystemBoxes { get; private set; }
+    public ParticleBox[] particleBoxes { get; private set; }
 
-    public ParticleSystemModel(ParticleSystemBox[] particleSystemBoxes)
+    public ParticleSystemModel(ParticleBox[] particleBoxes)
     {
-        this.particleSystemBoxes = particleSystemBoxes;
+        this.particleBoxes = particleBoxes;
     }
 }

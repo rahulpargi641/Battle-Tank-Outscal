@@ -3,22 +3,22 @@ using UnityEngine;
 
 public class AudioController
 {
-    private AudioModel audioModel;
+    private AudioModel model;
  
     public AudioController(AudioModel audioModel)
     {
-        this.audioModel = audioModel;
+        this.model = audioModel;
     }
 
     public void OnStart()
     {
         AudioSource movementAudioSrc = GetAudioSource(AudioSourceType.MovementAudioSrc);
-        audioModel.OriginalPitch = movementAudioSrc.pitch;
+        model.OriginalPitch = movementAudioSrc.pitch;
     }
 
     public void PlayEngineSound(float movementInput, float turnInput)
     {
-        if (audioModel.IsMute) return;
+        if (model.IsMute) return;
     
         AudioClip engineIdling = GetAudioClip(SoundType.EngineIdle);
         AudioClip engineDriving = GetAudioClip(SoundType.EngineDriving);
@@ -51,9 +51,26 @@ public class AudioController
         }
     }
 
+    internal void PlayShellExplosionSound()
+    {
+        if (model.IsMute) return;
+
+        AudioSource shellExplosionAudioSrc = GetAudioSource(AudioSourceType.ShellExplosionAudioSrc);
+        AudioClip explosionClip = GetAudioClip(SoundType.ShellExplosion);
+        if (shellExplosionAudioSrc && explosionClip)
+        {
+            shellExplosionAudioSrc.clip = explosionClip;
+            shellExplosionAudioSrc.Play();
+        }
+        else
+        {
+            Debug.LogError("Audio source or audio clip not found for Tank Explosion: ");
+        }
+    }
+
     public void PlayShootingSound(SoundType soundType)
     {
-        if (audioModel.IsMute) return;
+        if (model.IsMute) return;
 
         AudioSource shootingAudioSrc = GetAudioSource(AudioSourceType.ShootingAudioSrc);
         AudioClip explosionClip = GetAudioClip(soundType);
@@ -70,7 +87,7 @@ public class AudioController
 
     internal void PlayTankExplosionSound()
     {
-        if (audioModel.IsMute) return;
+        if (model.IsMute) return;
 
         AudioSource explosionAudioSrc = GetAudioSource(AudioSourceType.TankExplosionAudioSrc);
         AudioClip explosionClip = GetAudioClip(SoundType.TankExplosion);
@@ -87,17 +104,17 @@ public class AudioController
 
     private float GetVariablePitch(AudioSource movementAudioSrc)
     {
-       return UnityEngine.Random.Range(audioModel.OriginalPitch - audioModel.PitchRange, audioModel.OriginalPitch + audioModel.PitchRange);
+       return UnityEngine.Random.Range(model.OriginalPitch - model.PitchRange, model.OriginalPitch + model.PitchRange);
     }
 
     public void Mute(bool status)
     {
-        audioModel.IsMute = status;
+        model.IsMute = status;
     }
 
     public void Stop(SoundType soundType)
     {
-        audioModel.Stop(soundType);
+        model.Stop(soundType);
     }
 
 
@@ -131,11 +148,11 @@ public class AudioController
 
     private AudioClipBox FindAudioClipBox(SoundType soundType)
     {
-        return Array.Find(audioModel.audioClipBoxes, soundClip => soundClip.soundType == soundType);
+        return Array.Find(model.audioClipBoxes, soundClip => soundClip.soundType == soundType);
     }
 
     private AudioSourceBox FindAudioSourceBox(AudioSourceType soundType)
     {
-        return Array.Find(audioModel.audioSourceBoxes, soundSource => soundSource.audioSourceType == soundType);
+        return Array.Find(model.audioSourceBoxes, soundSource => soundSource.audioSourceType == soundType);
     }
 }

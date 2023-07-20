@@ -32,7 +32,7 @@ public class HealthView : MonoBehaviour, IDamageable
 
     private void OnDeath(Vector3 position)
     {
-        ParticleService.Instance.HandleParticleEvent(new ParticleEvent(ParticleEventType.TankExplosion, transform.position));
+        ParticleSystemService.Instance.SpawnParticles(new ParticleEvent(ParticleEventType.TankExplosion, transform.position));
         AudioService.Instance.PlayTankExplosionSound();
         gameObject.SetActive(false);
     }

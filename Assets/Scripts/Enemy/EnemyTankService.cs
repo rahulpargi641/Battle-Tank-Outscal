@@ -10,15 +10,24 @@ public class EnemyTankService : MonoSingletonGeneric<EnemyTankService>
 
     EnemyTankController enemyTankController;
 
+    EnemyTankPoolService tankPoolService;
+
+    private void Start()
+    {
+        tankPoolService = new EnemyTankPoolService();
+    }
+
     public List<EnemyTankController> CreateEnemyTanks()
     {
         List<EnemyTankController> spawnedEnemyControllers = new List<EnemyTankController>();
         for (int i = 0; i < numberOfTanks; i++)
         { 
-            EnemyTankScriptableObject enemyTankScriptableObject = enemyTankSOList.EnemyTanks[0];
-            EnemyTankModel enemyTankModel = new EnemyTankModel(enemyTankScriptableObject);
-            EnemyTankView enemyTankView = SpawnRandomlyInsideSpehre(enemyTankScriptableObject);
-            enemyTankController = new EnemyTankController(enemyTankModel, enemyTankScriptableObject.EnemyTankView);
+            EnemyTankScriptableObject enemyTankSO = enemyTankSOList.EnemyTanks[0];
+            EnemyTankModel enemyTankModel = new EnemyTankModel(enemyTankSO);
+            EnemyTankView enemyTankView = SpawnRandomlyInsideSpehre(enemyTankSO);
+            //enemyTankController = new EnemyTankController(enemyTankModel, enemyTankSO.EnemyTankView);
+            enemyTankController = tankPoolService.GetEnemyTankContoller(enemyTankModel, enemyTankView);
+            enemyTankController.Enable();
             spawnedEnemyControllers.Add(enemyTankController);
         }
         return spawnedEnemyControllers;
@@ -31,5 +40,11 @@ public class EnemyTankService : MonoSingletonGeneric<EnemyTankService>
         Vector3 randomPosition = new Vector3(transform.position.x + randomXPos, transform.position.y, transform.position.z + randomZPos);
         EnemyTankView enemyTankView = Instantiate(tankScriptableObject.EnemyTankView, randomPosition, Quaternion.identity); // put this line inside enemycontroller
         return enemyTankView;
+    }
+
+    void ReturnTank()
+    {
+        enemyTankController.OnDisable();
+        tankPoolService.ReturnItem(enemyTankController);
     }
 }
