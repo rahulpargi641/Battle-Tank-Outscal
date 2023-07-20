@@ -11,7 +11,7 @@ public class ShootingModel
     public int NSHotsFired { get; set; }
     public ShootingModel()
     {
-        MinLaunchForce = 15f;
+        MinLaunchForce = 15f; // set it through scriptable object
         MaxLaunchForce = 30f;
         MaxChargeTime = 0.75f;
     }

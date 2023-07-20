@@ -3,61 +3,59 @@ using UnityEngine.UI;
 
 public class ShootingView : MonoBehaviour
 {
-    public Rigidbody m_Shell;
-    public Transform m_FireTransform;
-    public Slider m_AimSlider;
+    public Transform fireTransform;
+    public Slider aimSlider;
 
-    private ShootingModel shootingModel;
-
+    private ShootingModel model;
 
     private void OnEnable()
     {
-        shootingModel = new ShootingModel();
-        shootingModel.CurrentLaunchForce = shootingModel.MinLaunchForce;
-        m_AimSlider.value = shootingModel.MinLaunchForce;
+        model = new ShootingModel();
+        model.CurrentLaunchForce = model.MinLaunchForce;
+        aimSlider.value = model.MinLaunchForce;
     }
 
     void Start()
     {
-        shootingModel.FireButton = "Fire1";
+        model.FireButton = "Fire1";
 
-        shootingModel.ChargeSpeed = (shootingModel.MaxLaunchForce - shootingModel.MinLaunchForce) / shootingModel.MaxChargeTime;
+        model.ChargeSpeed = (model.MaxLaunchForce - model.MinLaunchForce) / model.MaxChargeTime;
     }
 
     // Update is called once per frame
     void Update()
     {
         // Tank Shooting
-        m_AimSlider.value = shootingModel.MinLaunchForce;  // by default aim slider is invisible 
+        aimSlider.value = model.MinLaunchForce;  // by default aim slider is invisible 
 
         ProcessShooting();
     }
 
     private void ProcessShooting()
     {
-        if (shootingModel.CurrentLaunchForce >= shootingModel.MaxLaunchForce && !shootingModel.Fired)
+        if (model.CurrentLaunchForce >= model.MaxLaunchForce && !model.Fired)
         {
             // at max charge, not yet fired
-            shootingModel.CurrentLaunchForce = shootingModel.MaxLaunchForce;
+            model.CurrentLaunchForce = model.MaxLaunchForce;
             Fire();
         }
-        else if (Input.GetButtonDown(shootingModel.FireButton))
+        else if (Input.GetButtonDown(model.FireButton))
         {
             // have we pressed fire for the first time
-            shootingModel.Fired = false;  // have not fired yet 
-            shootingModel.CurrentLaunchForce = shootingModel.MinLaunchForce;
+            model.Fired = false;  // have not fired yet 
+            model.CurrentLaunchForce = model.MinLaunchForce;
 
             AudioService.Instance.PlayShotChargingSound();
 
         }
-        else if (Input.GetButton(shootingModel.FireButton) && !shootingModel.Fired)
+        else if (Input.GetButton(model.FireButton) && !model.Fired)
         {
             // Holding the fire button, not yet fired 
-            shootingModel.CurrentLaunchForce += shootingModel.ChargeSpeed * Time.deltaTime;
+            model.CurrentLaunchForce += model.ChargeSpeed * Time.deltaTime;
 
-            m_AimSlider.value = shootingModel.CurrentLaunchForce;
+            aimSlider.value = model.CurrentLaunchForce;
         }
-        else if (Input.GetButtonUp(shootingModel.FireButton) && !shootingModel.Fired)
+        else if (Input.GetButtonUp(model.FireButton) && !model.Fired)
         {
             // We released the button, having not fired yet
             Fire();
@@ -66,16 +64,19 @@ public class ShootingView : MonoBehaviour
 
     private void Fire()
     {
-        shootingModel.Fired = true;
+        model.Fired = true;
 
-        Rigidbody shellInstance = Instantiate(m_Shell, m_FireTransform.position, m_FireTransform.rotation) as Rigidbody;
-        shellInstance.velocity = shootingModel.CurrentLaunchForce * m_FireTransform.forward;
+        ShellView shell = ShellService.Instance.SpawnShell(fireTransform);
+        Rigidbody shellRigidbody = shell.GetComponent<Rigidbody>();
+
+       // Rigidbody shellInstance = Instantiate(shellPrefab, m_FireTransform.position, m_FireTransform.rotation) as Rigidbody;
+        shellRigidbody.velocity = model.CurrentLaunchForce * fireTransform.forward;
 
         AudioService.Instance.PlayShotFiringSound();
 
-        shootingModel.CurrentLaunchForce = shootingModel.MinLaunchForce;
+        model.CurrentLaunchForce = model.MinLaunchForce;
 
-        shootingModel.NSHotsFired++;
+        model.NSHotsFired++;
         AchievementService.Instance.ShotFired();
     }
 }

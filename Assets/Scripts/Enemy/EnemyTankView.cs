@@ -18,6 +18,16 @@ public class EnemyTankView : MonoBehaviour
     public float pathUpdateDelay = 0.2f;
     float pathUpdateDeadline;
 
+    internal void Disable()
+    {
+        gameObject.SetActive(false);
+    }
+
+    internal void Enabled()
+    {
+        throw new System.NotImplementedException();
+    }
+
     bool playerFound = false;
 
 

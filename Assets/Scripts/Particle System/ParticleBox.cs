@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [Serializable]
-public class ParticleSystemBox
+public class ParticleBox
 {
     public ParticleEventType particleEventType;
     public ParticleSystem particleSystem;

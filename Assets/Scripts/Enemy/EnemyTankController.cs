@@ -1,3 +1,4 @@
+using System;
 
 public class EnemyTankController
 {
@@ -10,5 +11,15 @@ public class EnemyTankController
 
         this.enemyTankModel.EnemyTankController = this;
         this.enemyTankView.EnemyTankController = this;
+    }
+
+    public void OnDisable()
+    {
+        enemyTankView.Disable();
+    }
+
+    internal void Enable()
+    {
+        enemyTankView.Enabled();
     }
 }

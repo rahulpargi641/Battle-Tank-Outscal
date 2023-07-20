@@ -1,25 +1,30 @@
 using System;
+using System.Threading.Tasks;
 using UnityEngine;
 
-public class ParticleSystemController
+public class ParticleSystemController : ParticleEventObserver
 {
     private ParticleSystemModel model;
+    ParticlePoolService particlePoolService;
 
     public ParticleSystemController(ParticleSystemModel model)
     {
-        this.model = model;       
+        this.model = model;
+        particlePoolService = new ParticlePoolService();
     }
 
-    public void SpawnParticles(ParticleEvent particleEvent)
+    public void HandleParticleEvent(ParticleEvent particleEvent)
     {
-        ParticleSystem particleSystem = GetParticleSystem(particleEvent.EventType);
-        if(particleSystem)
+        ParticleSystem particleSystemPrefab = GetParticleSystem(particleEvent.EventType);
+        if(particleSystemPrefab)
         {
-            // Spawn particles at the specified position using the corresponding particle system
-            ParticleSystem instance = GameObject.Instantiate(particleSystem) as ParticleSystem;
-            instance.transform.position = particleEvent.Position;
-            instance.Play();
-            Debug.Log("Particles spawned succesfully");
+            //ParticleSystem particleSystem = GameObject.Instantiate(particleSystemPrefab) as ParticleSystem;
+            particlePoolService.Initialize(particleSystemPrefab);
+            ParticleSystem particleSystem = particlePoolService.GetParticleSystem();
+            particleSystem.gameObject.SetActive(true);
+            particleSystem.transform.position = particleEvent.Position;
+            particleSystem.Play();
+            ReturnParticleSystemToPoolAsync(particleSystem);
         }
         else
         {
@@ -27,9 +32,25 @@ public class ParticleSystemController
         }
     }
 
+    public async void ReturnParticleSystemToPoolAsync(ParticleSystem particleSystem)
+    {
+        while (particleSystem && particleSystem.isPlaying)
+        {
+            await Task.Yield();
+        }
+
+        if (particleSystem)
+        {
+            particleSystem.gameObject.SetActive(false);
+            particlePoolService.ReturnItem(particleSystem);
+
+            Debug.Log("Particle system returned to the pool: " + particleSystem);
+        }
+    }
+
     private ParticleSystem GetParticleSystem(ParticleEventType particleEventType)
     {
-        ParticleSystemBox particleSystemBox = FindParticleSystemBox(particleEventType);
+        ParticleBox particleSystemBox = FindParticleSystemBox(particleEventType);
         if (particleSystemBox != null)
         {
             return particleSystemBox.particleSystem;
@@ -41,8 +62,8 @@ public class ParticleSystemController
         }
     }
 
-    private ParticleSystemBox FindParticleSystemBox(ParticleEventType particleEventType)
+    private ParticleBox FindParticleSystemBox(ParticleEventType particleEventType)
     {
-        return Array.Find(model.particleSystemBoxes, particleSystemBox => particleSystemBox.particleEventType == particleEventType);
+        return Array.Find(model.particleBoxes, particleSystemBox => particleSystemBox.particleEventType == particleEventType);
     }
 }

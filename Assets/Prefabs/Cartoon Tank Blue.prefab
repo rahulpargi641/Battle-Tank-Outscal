@@ -624,7 +624,7 @@ MonoBehaviour:
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
-  m_FillClockwise: 0
+  m_FillClockwise: 1
   m_FillOrigin: 3
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
@@ -642,6 +642,8 @@ GameObject:
   - component: {fileID: 6974899829794256486}
   - component: {fileID: 6068508028760871704}
   - component: {fileID: 6974899829794256480}
+  - component: {fileID: 2803577784578370418}
+  - component: {fileID: 2803577784578370422}
   m_Layer: 7
   m_Name: Cartoon Tank Blue
   m_TagString: Untagged
@@ -710,7 +712,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 4932ab25b84dd7649b80af68a9660ddc, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.67
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -902,24 +904,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f975630e2f54a8849a4130a1f39574d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MovementAudio: {fileID: 6974899829794256486}
-  m_EngineIdling: {fileID: 8300000, guid: 4932ab25b84dd7649b80af68a9660ddc, type: 3}
-  m_EngineDriving: {fileID: 8300000, guid: d7ca9fb5aa30155449192b23d7fb3336, type: 3}
-  m_PitchRange: 0.2
-  m_HealthSlider: {fileID: 6974899829288640584}
-  m_HealthFillImage: {fileID: 6974899830440587363}
-  m_FullHealthColor: {r: 0.15614095, g: 0.51704514, b: 0.8113208, a: 1}
-  m_ZeroHealthColor: {r: 1, g: 0, b: 0, a: 1}
-  m_ExplosionPrefab: {fileID: 151086, guid: ee49a9a8678ecf8468eb488e1ac8d42b, type: 3}
-  m_Shell: {fileID: 4072476765267915353, guid: 342119008e3900847aa00d49f47a1def, type: 3}
-  m_FireTransform: {fileID: 5548341759291619145}
-  m_AimSlider: {fileID: 2267667872923856614}
-  m_ShootingAudio: {fileID: 6068508028760871704}
-  m_ChargingClip: {fileID: 8300000, guid: c17f124fcdc0f5446a72f793898bd74b, type: 3}
-  m_FireClip: {fileID: 8300000, guid: 672a9941361ad494a99fba36759eca80, type: 3}
-  m_MinLaunchForce: 15
-  m_MaxLaunchForce: 30
-  m_MaxChargeTime: 0.75
+--- !u!114 &2803577784578370418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7423745020318913527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d53e5fd8d48abd4d948de909b829f77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HealthSlider: {fileID: 6974899829288640584}
+  HealthFillImage: {fileID: 6974899830440587363}
+  FullHealthColor: {r: 0.013207495, g: 0.48939282, b: 1, a: 1}
+  ZeroHealthColor: {r: 1, g: 0, b: 0, a: 1}
+--- !u!114 &2803577784578370422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7423745020318913527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 830184468ddf4544c8c56499c0b3fb3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shellPrefab: {fileID: 4072476765267915353, guid: 342119008e3900847aa00d49f47a1def,
+    type: 3}
+  fireTransform: {fileID: 5548341759291619145}
+  aimSlider: {fileID: 2267667872923856614}
 --- !u!1001 &6857372514511901593
 PrefabInstance:
   m_ObjectHideFlags: 0
