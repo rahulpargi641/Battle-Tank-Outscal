@@ -2,9 +2,9 @@
 public class EnemyTankPoolService : PoolServiceGeneric<EnemyTankController>
 {
     private EnemyTankModel model;
-    private EnemyTankView view;
+    private EnemyAIView view;
 
-    public EnemyTankController GetEnemyTankContoller(EnemyTankModel model, EnemyTankView view)
+    public EnemyTankController GetEnemyTankContoller(EnemyTankModel model, EnemyAIView view)
     {
         this.model = model;
         this.view = view;

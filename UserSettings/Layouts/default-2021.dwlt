@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1536
     height: 820.8
   m_ShowMode: 4
-  m_Title: Inspector
+  m_Title: Project
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 371}
   m_MaxSize: {x: 10000, y: 10000}
@@ -120,7 +120,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 10965
+  controlID: 154
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -145,7 +145,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 11023
+  controlID: 155
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -223,7 +223,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 10975
+  controlID: 97
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -300,7 +300,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 10966
+  controlID: 145
 --- !u!114 &13
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -320,8 +320,8 @@ MonoBehaviour:
     y: 0
     width: 368
     height: 387.2
-  m_MinSize: {x: 275, y: 50}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 276, y: 71}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 20}
   m_Panes:
   - {fileID: 20}
@@ -417,7 +417,7 @@ MonoBehaviour:
     m_HSlider: 0
     m_VSlider: 0
     m_IgnoreScrollWheelUntilClicked: 0
-    m_EnableMouseInput: 1
+    m_EnableMouseInput: 0
     m_EnableSliderZoomHorizontal: 0
     m_EnableSliderZoomVertical: 0
     m_UniformScale: 1
@@ -729,9 +729,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 2.2953405, y: -11.598448, z: -15.302101}
+    m_Target: {x: -15.814844, y: -3.7746913, z: 2.375109}
     speed: 2
-    m_Value: {x: 2.2953405, y: -11.598448, z: -15.302101}
+    m_Value: {x: -15.814844, y: -3.7746913, z: 2.375109}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -778,13 +778,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.2059725, y: 0.7937434, z: -0.39199924, w: 0.4171923}
+    m_Target: {x: 0.272521, y: 0.36181274, z: -0.11138461, w: 0.88466907}
     speed: 2
-    m_Value: {x: 0.2059554, y: 0.7936775, z: -0.39196673, w: 0.4171577}
+    m_Value: {x: -0.272521, y: -0.36181274, z: 0.11138461, w: -0.88466907}
   m_Size:
-    m_Target: 19.41828
+    m_Target: 14.921114
     speed: 2
-    m_Value: 19.41828
+    m_Value: 14.921114
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -870,8 +870,8 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 2a630000
-      m_LastClickedID: 25386
+      m_SelectedIDs: ae100000
+      m_LastClickedID: 0
       m_ExpandedIDs: fefaffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
@@ -938,22 +938,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Prefabs
+    - Assets/Scripts/Enemy
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Prefabs
+  - Assets/Scripts/Enemy
   m_LastFoldersGridSize: 16
   m_LastProjectPath: D:\Unity Game Development\Outscal\battle-tank-game
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 144.6}
-    m_SelectedIDs: 7e6e0000
-    m_LastClickedID: 28286
-    m_ExpandedIDs: 00000000466e0000886e000000ca9a3b
+    scrollPos: {x: 0, y: 264.6}
+    m_SelectedIDs: 8c6e0000
+    m_LastClickedID: 28300
+    m_ExpandedIDs: 00000000586e00005a6e000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -981,7 +981,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000466e0000886e000000ca9a3b
+    m_ExpandedIDs: 00000000586e00005a6e0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 

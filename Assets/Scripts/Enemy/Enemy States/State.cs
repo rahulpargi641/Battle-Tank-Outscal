@@ -21,9 +21,13 @@ public class State
     protected Transform playerTransform;
     protected State nextState;
 
+
     float visibleDist = 20.0f; // 10f
     float visibleAngle = 90.0f; // 30f
     float shootDist = 15.0f; // 7f
+
+    private float pathUpdateDelay = 0.2f;
+    private float pathUpdateDeadline;
 
     public State(GameObject npcGO, NavMeshAgent navMeshAgent, Animator animator, Transform playerTransform)
     {
@@ -48,6 +52,16 @@ public class State
             return nextState;
         }
         return this; // we keep returning the same state
+    }
+
+    protected void UpdatePath(Vector3 targetPoint)
+    {
+        if (Time.time >= pathUpdateDeadline)
+        {
+            Debug.Log("Updating path");
+            pathUpdateDeadline = Time.time + pathUpdateDelay;
+            navMeshAgent.SetDestination(targetPoint);
+        }
     }
 
     public bool CanSeePlayer()

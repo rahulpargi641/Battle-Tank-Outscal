@@ -40,7 +40,8 @@ public class Patrol : State
                 currentIndex = 0;
 
             Vector3 patrolPoint = EnvironmentService.Instance.PatrolPoints[currentIndex].position;
-            navMeshAgent.SetDestination(patrolPoint);
+            //navMeshAgent.SetDestination(patrolPoint);
+            UpdatePath(patrolPoint);
             currentIndex++;
         }
 

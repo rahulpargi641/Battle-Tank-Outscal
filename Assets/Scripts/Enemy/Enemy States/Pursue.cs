@@ -19,7 +19,8 @@ public class Pursue : State
 
     public override void Update()
     {
-        navMeshAgent.SetDestination(playerTransform.position);
+        //navMeshAgent.SetDestination(playerTransform.position);
+        UpdatePath(playerTransform.position);
         if (navMeshAgent.hasPath) // means following the player       
         {
             if (CanAttackPlayer())

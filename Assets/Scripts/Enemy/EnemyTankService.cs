@@ -24,7 +24,7 @@ public class EnemyTankService : MonoSingletonGeneric<EnemyTankService>
         { 
             EnemyTankScriptableObject enemyTankSO = enemyTankSOList.EnemyTanks[0];
             EnemyTankModel enemyTankModel = new EnemyTankModel(enemyTankSO);
-            EnemyTankView enemyTankView = SpawnRandomlyInsideSpehre(enemyTankSO);
+            EnemyAIView enemyTankView = SpawnRandomlyInsideSpehre(enemyTankSO);
             //enemyTankController = new EnemyTankController(enemyTankModel, enemyTankSO.EnemyTankView);
             enemyTankController = tankPoolService.GetEnemyTankContoller(enemyTankModel, enemyTankView);
             enemyTankController.Enable();
@@ -33,12 +33,12 @@ public class EnemyTankService : MonoSingletonGeneric<EnemyTankService>
         return spawnedEnemyControllers;
     }
 
-    private EnemyTankView SpawnRandomlyInsideSpehre(EnemyTankScriptableObject tankScriptableObject)
+    private EnemyAIView SpawnRandomlyInsideSpehre(EnemyTankScriptableObject tankScriptableObject)
     {
         float randomXPos = UnityEngine.Random.Range(-spawningRange, spawningRange);
         float randomZPos = UnityEngine.Random.Range(-spawningRange, spawningRange);
         Vector3 randomPosition = new Vector3(transform.position.x + randomXPos, transform.position.y, transform.position.z + randomZPos);
-        EnemyTankView enemyTankView = Instantiate(tankScriptableObject.EnemyTankView, randomPosition, Quaternion.identity); // put this line inside enemycontroller
+        EnemyAIView enemyTankView = Instantiate(tankScriptableObject.EnemyTankView, randomPosition, Quaternion.identity); // put this line inside enemycontroller
         return enemyTankView;
     }
 

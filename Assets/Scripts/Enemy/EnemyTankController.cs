@@ -1,25 +1,24 @@
-using System;
 
 public class EnemyTankController
 {
-    private EnemyTankModel enemyTankModel;
-    private EnemyTankView enemyTankView;
-    public EnemyTankController(EnemyTankModel enemyTankModel, EnemyTankView enemyTankView)
+    private EnemyTankModel model;
+    private EnemyAIView view;
+    public EnemyTankController(EnemyTankModel model, EnemyAIView view)
     {
-        this.enemyTankModel = enemyTankModel;
-        this.enemyTankView = enemyTankView;
+        this.model = model;
+        this.view = view;
 
-        this.enemyTankModel.EnemyTankController = this;
-        this.enemyTankView.EnemyTankController = this;
+        this.model.Controller = this;
+        this.view.Controller = this;
     }
 
     public void OnDisable()
     {
-        enemyTankView.Disable();
+        view.Disable();
     }
 
-    internal void Enable()
+    public void Enable()
     {
-        enemyTankView.Enabled();
+        view.Enabled();
     }
 }

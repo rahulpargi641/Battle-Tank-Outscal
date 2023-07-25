@@ -1,9 +1,18 @@
 
+using UnityEngine;
+
 public class EnemyTankModel: TankModel
 {
-    public EnemyTankController EnemyTankController { private get; set; }
+    public EnemyTankController Controller { private get; set; }
   
-    EnemyTankScriptableObject enemyTankScriptableObject;
+    private EnemyTankScriptableObject enemyTankScriptableObject;
+
+   // public NavmeshAgent NavmeshAgent { private set; get; }
+
+    public Animator Animator { private set; get; }
+    public Transform PlayerTransform { private set; get; }
+
+
     public EnemyTankModel(EnemyTankScriptableObject enemyTankScriptableObject): base(enemyTankScriptableObject)
     {
         this.enemyTankScriptableObject = enemyTankScriptableObject;
