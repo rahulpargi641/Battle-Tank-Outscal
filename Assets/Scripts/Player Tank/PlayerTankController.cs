@@ -17,15 +17,48 @@ public class PlayerTankController
     public void MoveTank(float movementInput)
     {
 
-        Vector3 movement = playerTankView.transform.forward * movementInput * playerTankModel.MoveSpeed * Time.deltaTime;
+        Vector3 movement = playerTankView.transform.forward * movementInput * playerTankModel.MoveSpeed * Time.fixedDeltaTime;
         playerTankView.Rigidbody.MovePosition(playerTankView.Rigidbody.position + movement); // moves to the absolute position you give it
     }
 
-    public void TurnTank(float turnInputValue)
+    public void TurnTank(float turnInput)
     {
-        float turn = turnInputValue * playerTankModel.TurnSpeed * Time.deltaTime;
+        float turn = turnInput * playerTankModel.TurnSpeed * Time.deltaTime;
         Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
         playerTankView.Rigidbody.MoveRotation(playerTankView.Rigidbody.rotation * turnRotation);
+    }
+
+    public void TurnWheels(float movementInput, float turnInput)
+    {
+        float wheelRotation = movementInput * playerTankModel.WheelRotationSpeed * Time.deltaTime;
+
+        // Move the left wheels
+        foreach(Wheel wheel in playerTankView.LeftWheels)
+        {
+            if(wheel)
+            {
+                wheel.transform.Rotate(wheelRotation - turnInput * playerTankModel.WheelRotationSpeed * Time.deltaTime, 0.0f, 0.0f); // rotate in x dir
+            }
+        }
+
+        // Move the right wheels
+        foreach (Wheel wheel in playerTankView.RightWheels)
+        {
+            if (wheel)
+            {
+                wheel.transform.Rotate(wheelRotation + turnInput * playerTankModel.WheelRotationSpeed * Time.deltaTime, 0.0f, 0.0f); // rotate in x dir
+            }
+        }
+    }
+
+    public void SpinTurretLeft()
+    {
+        playerTankView.Turret.transform.Rotate(Vector3.up, playerTankModel.TurretSpinSpeed * Time.deltaTime);
+    }
+
+    public void SpinTurretRight()
+    {
+        playerTankView.Turret.transform.Rotate(Vector3.up, -playerTankModel.TurretSpinSpeed * Time.deltaTime);
     }
 
     //public void RotateTank(float yawRotatationInput)

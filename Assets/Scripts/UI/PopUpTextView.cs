@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -9,28 +10,43 @@ public class PopUpTextView : MonoBehaviour
 
     private void OnEnable()
     {
-        EventService.Instance.onShotsFiredAction += ShowShotsFiredText;
-        EventService.Instance.onEnemyDeathAction += ShowEnemiesDestroyedText;
+        EventService.Instance.OnShotsFiredAction += ShowShotsFiredText;
+        EventService.Instance.OnEnemiesDestroyedAction += ShowEnemiesDestroyedText;
+    }
+    private void OnDisable()
+    {
+        EventService.Instance.OnShotsFiredAction -= ShowShotsFiredText;
+        EventService.Instance.OnEnemiesDestroyedAction -= ShowEnemiesDestroyedText;
     }
 
     private void ShowShotsFiredText(int nShotsFired)
     {
         string nShotsFiredText = nShotsFired + " Shots Fired";
         shotsFiredText.text = nShotsFiredText;
-        achievementText.gameObject.SetActive(true);
-        shotsFiredText.gameObject.SetActive(true);
+        ShowText(shotsFiredText, nShotsFiredText);
     }
+
     private void ShowEnemiesDestroyedText(int nEnemiesKilled)
     {
         string nEnemiesDestroyedText = nEnemiesKilled + " Enemies Destroyed";
         enemiesDestroyedText.text = nEnemiesDestroyedText;
-        achievementText.gameObject.SetActive(true);
-        enemiesDestroyedText.gameObject.SetActive(true);
+        ShowText(enemiesDestroyedText, nEnemiesDestroyedText);
     }
 
-    private void OnDisable()
+    private void ShowText(TextMeshProUGUI text, string message)
     {
-        EventService.Instance.onShotsFiredAction -= ShowShotsFiredText;
-        EventService.Instance.onEnemyDeathAction -= ShowEnemiesDestroyedText;
+        text.text = message;
+        text.gameObject.SetActive(true);
+        achievementText.gameObject.SetActive(true);
+
+        StartCoroutine(HideTextAfterDelay(text.gameObject));
+    }
+
+    private IEnumerator HideTextAfterDelay(GameObject textObject)
+    {
+        yield return new WaitForSeconds(3f);
+
+        achievementText.gameObject.SetActive(false);
+        textObject.SetActive(false);
     }
 }

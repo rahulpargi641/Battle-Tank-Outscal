@@ -1,15 +1,19 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerTankView: MonoBehaviour
-{   
+{
+    [SerializeField] Wheel[] leftWheels;
+    [SerializeField] Wheel[] rightWheels;
+    [SerializeField] GameObject turret;
+    public Wheel[] LeftWheels => leftWheels;
+    public Wheel[] RightWheels => rightWheels;
+    public GameObject Turret => turret;
     public PlayerTankController PlayerTankController { private get; set; }
     public Rigidbody Rigidbody { get; private set; }
 
     private string movementAxisName;
     private string turnAxisName;
-
-    private float turnSpeed = 60; // remove it
-    private float moveSpeed = 8f; // remove it
 
     private float movementInputValue;
     private float turnInputValue;
@@ -34,8 +38,20 @@ public class PlayerTankView: MonoBehaviour
 
     private void Update()
     {
+        CameraService.Instance.AddTarget(transform);
+
         ReadMovementInput();
+
         PlayVaryingPtichEngineSound();
+
+        PlayerTankController.TurnWheels(movementInputValue, turnInputValue);
+
+        ProcessTurretSpinning();
+    }
+
+    private void FixedUpdate()
+    {
+        ProcessTankMovement();
     }
 
     private void OnDisable()
@@ -48,15 +64,6 @@ public class PlayerTankView: MonoBehaviour
         AudioService.Instance.PlayEngineSound(movementInputValue, turnInputValue);
     }
 
-    private void FixedUpdate()
-    {
-        ProcessTankMovement();
-        //playerTankController.MoveTank(m_MovementInputValue);
-        ////Move();
-        //playerTankController.Turn(m_TurnInputValue);
-        ////Turn();
-    }
-
     private void ReadMovementInput()
     {
         movementInputValue = Input.GetAxis(movementAxisName);
@@ -65,28 +72,19 @@ public class PlayerTankView: MonoBehaviour
 
     private void ProcessTankMovement()
     {
-        //if (m_MovementInputValue != 0)
-        //    playerMainTankController.MoveTank(m_MovementInputValue);
+        if (movementInputValue != 0)
+            PlayerTankController.MoveTank(movementInputValue);
 
-        //if (m_TurnInputValue != 0)
-        //    playerMainTankController.TurnTank(m_TurnInputValue);
-
-        Turn();
-        Move();
-
+        if (turnInputValue != 0)
+           PlayerTankController.TurnTank(turnInputValue);
     }
 
-    private void Turn()
+    private void ProcessTurretSpinning()
     {
-        float turn = turnInputValue * turnSpeed * Time.deltaTime;
-        Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
-        Rigidbody.MoveRotation(Rigidbody.rotation * turnRotation);
-    }
+        if(Input.GetKey(KeyCode.Q))
+            PlayerTankController.SpinTurretLeft();
 
-    //Done Refactoring
-    private void Move()
-    {
-        Vector3 movement = transform.forward * movementInputValue * moveSpeed * Time.deltaTime;
-        Rigidbody.MovePosition(Rigidbody.position + movement); // moves to the absolute position you give it
+        if (Input.GetKey(KeyCode.E))
+            PlayerTankController.SpinTurretRight();
     }
 }

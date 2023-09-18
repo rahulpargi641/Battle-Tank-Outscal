@@ -3,26 +3,26 @@ using UnityEngine.AI;
 
 public class Patrol : State
 {
-    int currentIndex = -1;
+    int currentIndex = 0;
+    int nPatrolPoints;
 
-    public Patrol(GameObject npc, NavMeshAgent navMeshAgent, Animator animator, Transform playerTransform) 
-        : base(npc, navMeshAgent, animator, playerTransform)
+    public Patrol(EnemyAIView enemyAIView, NavMeshAgent navMeshAgent, Animator animator, Transform playerTransform) 
+        : base(enemyAIView, navMeshAgent, animator, playerTransform)
     {
         state = EState.Patrol;
         navMeshAgent.speed = 2;
         navMeshAgent.isStopped = false;
+        nPatrolPoints = enemyAIView.PatrolPoints.Length;
     }
 
     public override void Enter()
     {
-        //currentIndex = 0;
-
         float lastDist = Mathf.Infinity;
-        for(int i=0; i < EnvironmentService.Instance.PatrolPoints.Count; i++)
+        for (int i = 0; i < nPatrolPoints; i++)
         {
-            Transform currPatrolPoint = EnvironmentService.Instance.PatrolPoints[i];
-            float distance = Vector3.Distance(npcGO.transform.position, currPatrolPoint.position);
-            if(distance < lastDist)
+            Transform currPatrolPoint = enemyAIView.PatrolPoints[i];
+            float distance = Vector3.Distance(enemyAIView.transform.position, currPatrolPoint.position);
+            if (distance < lastDist)
             {
                 currentIndex = i;
                 lastDist = distance;
@@ -31,23 +31,23 @@ public class Patrol : State
         //animator.SetTrigger("IsWalking");
         base.Enter();
     }
+
     public override void Update()
     {
         //base.Update();
         if (!navMeshAgent.pathPending && navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
         {
-            if (currentIndex >= EnvironmentService.Instance.PatrolPoints.Count - 1)
+            if (currentIndex >= nPatrolPoints)
                 currentIndex = 0;
 
-            Vector3 patrolPoint = EnvironmentService.Instance.PatrolPoints[currentIndex].position;
-            //navMeshAgent.SetDestination(patrolPoint);
+            Vector3 patrolPoint = enemyAIView.PatrolPoints[currentIndex].position;
             UpdatePath(patrolPoint);
             currentIndex++;
         }
 
         if (CanSeePlayer())
         {
-            nextState = new Pursue(npcGO, navMeshAgent, animator, playerTransform);
+            nextState = new Pursue(enemyAIView, navMeshAgent, animator, playerTransform);
             stage = EStage.Exit;
         }
     }

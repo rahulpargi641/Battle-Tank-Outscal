@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -15,26 +16,30 @@ public class State
 {
     public EState state;
     protected EStage stage;
-    protected GameObject npcGO;
+    protected EnemyAIView enemyAIView;
     protected NavMeshAgent navMeshAgent;
+
     protected Animator animator;
     protected Transform playerTransform;
     protected State nextState;
 
 
-    float visibleDist = 20.0f; // 10f
+    float visibleDist = 17.0f; // 10f
     float visibleAngle = 90.0f; // 30f
-    float shootDist = 15.0f; // 7f
+    float shootDist = 14.0f; // 7f
 
     private float pathUpdateDelay = 0.2f;
     private float pathUpdateDeadline;
 
-    public State(GameObject npcGO, NavMeshAgent navMeshAgent, Animator animator, Transform playerTransform)
+
+    public State(EnemyAIView enemyAIView, NavMeshAgent navMeshAgent, Animator animator, Transform playerTransform)
     {
-        this.npcGO = npcGO;
+        this.enemyAIView = enemyAIView;
         this.navMeshAgent = navMeshAgent;
         this.animator = animator;
         this.playerTransform = playerTransform;
+
+        EventService.Instance.OnEnemyDeathAction += EnemyDestroyed;
     }
 
     public virtual void Enter() { stage = EStage.Update; }
@@ -66,8 +71,8 @@ public class State
 
     public bool CanSeePlayer()
     {
-        Vector3 playerDirection = playerTransform.position - npcGO.transform.position;
-        float facingAngle = Vector3.Angle(playerDirection, npcGO.transform.forward);
+        Vector3 playerDirection = playerTransform.position - enemyAIView.transform.position;
+        float facingAngle = Vector3.Angle(playerDirection, enemyAIView.transform.forward);
 
         if (playerDirection.magnitude < visibleDist && facingAngle < visibleAngle)
             return true;
@@ -77,10 +82,20 @@ public class State
 
     public bool CanAttackPlayer()
     {
-        Vector3 playerDirection = playerTransform.position - npcGO.transform.position;
+        Vector3 playerDirection = playerTransform.position - enemyAIView.transform.position;
         if (playerDirection.magnitude < shootDist)
             return true;
         else
             return false;
+    }
+
+    internal void Initialize()
+    {
+        throw new NotImplementedException();
+    }
+    protected virtual void EnemyDestroyed()
+    {
+        //nextState = null;
+        Debug.Log("Enemy Destroyed");
     }
 }

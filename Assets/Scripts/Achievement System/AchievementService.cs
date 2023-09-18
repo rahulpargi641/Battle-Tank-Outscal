@@ -8,16 +8,17 @@ public class AchievementService : MonoSingletonGeneric<AchievementService>
     {
         AchievementModel achievementModel= new AchievementModel();
         achievementView = new AchievementView(achievementModel);
-        Debug.Log("Achievement Service created");
 
+        EventService.Instance.OnEnemyDeathAction += EnemyDestroyed;
     }
+
+    private void EnemyDestroyed()
+    {
+        achievementView.EnemyDestroyed();
+    }
+
     public void ShotFired()
     {
         achievementView.ShotFired();
-    }
-
-    public void EnemyKilled()
-    {
-        achievementView.EnemyDestroyed();
     }
 }

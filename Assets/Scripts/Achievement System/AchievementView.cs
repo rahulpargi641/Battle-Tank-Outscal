@@ -22,9 +22,9 @@ public class AchievementView : MonoBehaviour
     {
         achievementModel.NEnemiesDestroyed++;
 
-        if (achievementModel.NEnemiesDestroyed % 10 == 0)
+        if (achievementModel.NEnemiesDestroyed % 5 == 0)
         {
-            EventService.Instance.InvokeEnemyDeathAction(achievementModel.NEnemiesDestroyed);
+            EventService.Instance.InvokeEnemiesDestroyedAction(achievementModel.NEnemiesDestroyed);
             //GameAudioService.Instance.PlayAudio(GameAudio.SoundType.Explosion);
         }
     }

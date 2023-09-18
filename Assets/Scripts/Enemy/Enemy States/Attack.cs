@@ -1,3 +1,5 @@
+using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -6,11 +8,15 @@ public class Attack : State
     float rotationSpeed = 2.0f;
     Transform fireTransform;
     int CurrentLaunchForce = 15;
-  public Attack(GameObject npcGO, NavMeshAgent navMeshAgent, Animator animator, Transform playerTransform)
-        : base(npcGO, navMeshAgent, animator, playerTransform)
+
+    bool continueAttacking = true;
+
+    bool isRotating = true; // Flag to control rotation
+
+    public Attack(EnemyAIView enemyAIView, NavMeshAgent navMeshAgent, Animator animator, Transform playerTransform)
+        : base(enemyAIView, navMeshAgent, animator, playerTransform)
     {
         state = EState.Attack;
-        EnemyAIView enemyAIView = npcGO.GetComponent<EnemyAIView>();
         fireTransform = enemyAIView.FireTransform;
     }
 
@@ -18,66 +24,64 @@ public class Attack : State
     {
         //animator.SetTrigger("IsShooting");
         navMeshAgent.isStopped = true;
-        Fire();
-        //AudioService.Instance.PlayShotFiringSound();
+        isRotating = true; // Start rotating when entering attack state
+        _ = FireAsync();
+        CameraService.Instance.AddTarget(enemyAIView.gameObject.transform);
         base.Enter();
     }
 
     public override void Update()
     {
-        Vector3 playerDirection = playerTransform.position - npcGO.transform.position;
-        float facingtAngle = Vector3.Angle(playerDirection, npcGO.transform.forward);
+        Vector3 playerDirection = playerTransform.position - enemyAIView.transform.position;
+        float facingtAngle = Vector3.Angle(playerDirection, enemyAIView.transform.forward);
         playerDirection.y = 0; // Update this 
 
         Quaternion lookRotation = Quaternion.LookRotation(playerDirection);
-        npcGO.transform.rotation = Quaternion.Slerp(npcGO.transform.rotation, lookRotation, rotationSpeed * Time.deltaTime);
+        enemyAIView.transform.rotation = Quaternion.Slerp(enemyAIView.transform.rotation, lookRotation, rotationSpeed * Time.deltaTime);
+
+        // Check if the rotation has completed
+        if (Quaternion.Angle(enemyAIView.transform.rotation, lookRotation) < 0.1f)
+        {
+            isRotating = false; // Stop rotating
+            //Fire(); // Start firing after rotation completes
+        }
+
 
         if (!CanAttackPlayer())
         {
-            nextState = new Idle(npcGO, navMeshAgent, animator, playerTransform);
+            nextState = new Idle(enemyAIView, navMeshAgent, animator, playerTransform);
             stage = EStage.Exit;
         }
-
     }
 
     public override void Exit()
     {
         //animator.ResetTrigger("IsShooting");
-        //shoot.Stop();  audioplayer shoot stop 
+        continueAttacking = false; // Stop the attacking loop
+        isRotating = true; // Restore rotation behavior when exiting attack state
+        CameraService.Instance.RemoveTarget(enemyAIView.gameObject.transform);
         base.Exit();
     }
 
+    protected override void EnemyDestroyed()
+    {
+        continueAttacking = false;
+    }
+    private async Task FireAsync()
+    {
+        while (continueAttacking)
+        {
+            await Task.Delay(1000);
+            if(! isRotating)
+            Fire();
+        }
+    }
     private void Fire()
     {
-       // model.Fired = true;
-
         ShellView shell = ShellService.Instance.SpawnShell(fireTransform);
         Rigidbody shellRigidbody = shell.GetComponent<Rigidbody>();
-
-        // Rigidbody shellInstance = Instantiate(shellPrefab, m_FireTransform.position, m_FireTransform.rotation) as Rigidbody;
         shellRigidbody.velocity = CurrentLaunchForce * fireTransform.forward;
 
         AudioService.Instance.PlayShotFiringSound();
-
-       // model.CurrentLaunchForce = model.MinLaunchForce;
-
-        //model.NSHotsFired++;
-        //AchievementService.Instance.ShotFired();
     }
-
-    //public override void Update()
-    //{
-    //    Vector3 playerDirection = playerTransform.position - npcGO.transform.position;
-    //    float facingAngle = Vector3.Angle(playerDirection, npcGO.transform.forward);
-    //    playerDirection.y = 0;
-
-    //    Quaternion lookRotation = Quaternion.LookRotation(playerDirection);
-    //    npcGO.transform.rotation = Quaternion.Slerp(npcGO.transform.rotation, lookRotation, rotationSpeed * Time.deltaTime);
-
-    //    if (!CanAttackPlayer())
-    //    {
-    //        nextState = new Pursue(npcGO, navMeshAgent, animator, playerTransform);
-    //        stage = EStage.Exit;
-    //    }
-    //}
 }

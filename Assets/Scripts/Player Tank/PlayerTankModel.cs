@@ -8,13 +8,18 @@ public class PlayerTankModel: TankModel
     public float MovementSpeedLive { get { return playerTankScriptableObject.MoveSpeed; } }
     public float TurnSpeed { get; }
     public int Damage { get; }
-
+    public float WheelRotationSpeed { get; private set; }
+    public float TurretSpinSpeed { get; private set; }
 
     private PlayerTankScriptableObject playerTankScriptableObject;
     public PlayerTankModel(PlayerTankScriptableObject playerTankScriptableObject) : base(playerTankScriptableObject)
     {
         this.playerTankScriptableObject = playerTankScriptableObject;
-        this.MoveSpeed = playerTankScriptableObject.MoveSpeed;
-        this.TurnSpeed = playerTankScriptableObject.turnSpeed;
+        MoveSpeed = playerTankScriptableObject.MoveSpeed;
+        TurnSpeed = playerTankScriptableObject.TurnSpeed;
+
+        WheelRotationSpeed = playerTankScriptableObject.wheelRotationSpeed;
+
+        TurretSpinSpeed = playerTankScriptableObject.TurretSpinSpeed;
     }
 }

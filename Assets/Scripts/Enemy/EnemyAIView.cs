@@ -4,9 +4,11 @@ using UnityEngine.AI;
 
 public class EnemyAIView : MonoBehaviour
 {
-    public EnemyTankController Controller { get; set; }
+    public EnemyTankController Controller { private get; set; }
     [SerializeField] Transform playerTransform;
     [SerializeField] Transform fireTransform;
+    [SerializeField] Transform[] patrolPoints;
+    public Transform[] PatrolPoints => patrolPoints;
 
     public Transform FireTransform => fireTransform;
 
@@ -14,27 +16,32 @@ public class EnemyAIView : MonoBehaviour
     Animator animator;
     State currentState;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
-        //anim = GetComponent<Animator>();
-        currentState = new Idle(gameObject, navMeshAgent, animator, playerTransform);
+        animator = GetComponent<Animator>();
     }
 
-    internal void Enabled()
+    internal void OnEnable()
     {
-        throw new NotImplementedException();
+        gameObject.SetActive(true);
     }
 
-    internal void Disable()
+    private void Start()
     {
-        throw new NotImplementedException();
+        currentState = new Idle(this, navMeshAgent, animator, playerTransform);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        currentState = currentState.Process();
+        if (currentState != null)
+            currentState = currentState.Process();
+        else
+            Debug.Log("Current state null");
+    }
+
+    public void OnDisable()
+    {
+        gameObject.SetActive(false);
     }
 }

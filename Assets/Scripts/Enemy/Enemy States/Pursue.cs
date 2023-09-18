@@ -1,10 +1,11 @@
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class Pursue : State
 { 
-    public Pursue(GameObject npcGO, NavMeshAgent navMeshAgent, Animator animator, Transform playerTransform)
-        : base(npcGO, navMeshAgent, animator, playerTransform)
+    public Pursue(EnemyAIView enemyAIView, NavMeshAgent navMeshAgent, Animator animator, Transform playerTransform)
+        : base(enemyAIView, navMeshAgent, animator, playerTransform)
     {
         state = EState.Pursue;
         navMeshAgent.speed = 5f;
@@ -14,6 +15,7 @@ public class Pursue : State
     public override void Enter()
     {
         //animator.SetTrigger("IsRunning");
+        CameraService.Instance.AddTarget(enemyAIView.gameObject.transform);
         base.Enter();
     }
 
@@ -25,20 +27,28 @@ public class Pursue : State
         {
             if (CanAttackPlayer())
             {
-                nextState = new Attack(npcGO, navMeshAgent, animator, playerTransform);
+                nextState = new Attack(enemyAIView, navMeshAgent, animator, playerTransform);
                 stage = EStage.Exit;
             }
             else if (!CanSeePlayer() || !navMeshAgent.pathPending && navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
             {
-                nextState = new Patrol(npcGO, navMeshAgent, animator, playerTransform);
+                _ = RemoveCameraAsync();
+                nextState = new Patrol(enemyAIView, navMeshAgent, animator, playerTransform);
                 stage = EStage.Exit;
             }
         }
     }
 
+    private async Task RemoveCameraAsync()
+    {
+        await Task.Delay(6000);
+        CameraService.Instance.RemoveTarget(enemyAIView.gameObject.transform);
+    }
+
     public override void Exit()
     {
         //animator.ResetTrigger("IsRunning");
+
         base.Exit();
     }
 }

@@ -8,8 +8,8 @@ public class ShellModel
 
     public ShellModel()
     {
-        MaxDamage = 50f;
-        ExplosionForce = 1000f;
+        MaxDamage = 10f;
+        ExplosionForce = 100f;
         MaxLifeTime = 2f;
         ExplosionRadius = 7f;
     }

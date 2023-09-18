@@ -14,11 +14,11 @@ public class EnemyTankController
 
     public void OnDisable()
     {
-        view.Disable();
+        //view.Disable();
     }
 
     public void Enable()
     {
-        view.Enabled();
+        //view.Enabled();
     }
 }

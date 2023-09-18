@@ -9,17 +9,14 @@ public class HealthView : MonoBehaviour, IDamageable
     HealthModel healthModel;
     public Slider HealthSlider;
     public Image HealthFillImage;
-    public Color FullHealthColor = Color.blue;
-    public Color ZeroHealthColor = Color.red;
+    public Color FullHealthColor;
+    public Color ZeroHealthColor;
 
-    private void Start()
-    {
-        SetHealthUI();
-    }
+    public int health;
 
     private void OnEnable()
     {
-        healthModel = new HealthModel(100);
+        healthModel = new HealthModel(health);
       
         SetHealthUI();
     }
@@ -30,13 +27,6 @@ public class HealthView : MonoBehaviour, IDamageable
         HealthFillImage.color = Color.Lerp(ZeroHealthColor, FullHealthColor, healthModel.CurrentHealth / healthModel.MaxHealth);
     }
 
-    private void OnDeath(Vector3 position)
-    {
-        ParticleSystemService.Instance.SpawnParticles(new ParticleEvent(ParticleEventType.TankExplosion, transform.position));
-        AudioService.Instance.PlayTankExplosionSound();
-        gameObject.SetActive(false);
-    }
-
     public void TakeDamage(float damage)
     {
         healthModel.CurrentHealth -= damage;   // remove damage magic number
@@ -44,8 +34,23 @@ public class HealthView : MonoBehaviour, IDamageable
         SetHealthUI();
 
         if (healthModel.CurrentHealth <= 0f && !healthModel.IsDead)
-        {
-            OnDeath(transform.position);
-        }
+        { OnDeath(); }
+    }
+
+    private void OnDeath()
+    {
+        ParticleSystemService.Instance.SpawnParticles(new ParticleEvent(ParticleEventType.TankExplosion, transform.position));
+        AudioService.Instance.PlayTankExplosionSound();
+
+        PlayerTankView player = gameObject.GetComponent<PlayerTankView>();
+        EnemyAIView enemy = gameObject.GetComponent<EnemyAIView>();
+
+        if (player)
+            EventService.Instance.InvokePlayerDeathAction();
+
+        else if (enemy) 
+            EventService.Instance.InvokeEnemyDeathAction();
+
+        gameObject.SetActive(false);
     }
 }

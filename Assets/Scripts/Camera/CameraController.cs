@@ -1,107 +1,116 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour
+public class CameraController
 {
-    public float m_DampTime = 0.2f;
-    public float m_ScreenEdgeBuffer = 4f;
-    public float m_MinSize = 6.5f;
-    public Transform[] m_Targets;
+    private CameraModel model;
+    private CameraView view;
 
-    private Camera m_Camera;
-    private float m_ZoomSpeed;
-    private Vector3 m_MoveVelocity;
-    private Vector3 m_DesiredPosition;
-
-    private void Awake()
+    public CameraController(CameraModel model, CameraView view)
     {
-        m_Camera = GetComponentInChildren<Camera>();
+        this.model = model;
+        this.view = view;
+
+        this.view.Controller = this;
+
+        //model.TargetTransforms = view.TargetTransforms;
     }
 
     private void FixedUpdate()
     {
-        Move();
-        Zoom();
+        //Move();
+        //Zoom();
     }
-    private void Move()
+    public void Move()
     {
-        FindAveragePosition();
+         FindAveragePosition();
 
-        transform.position = Vector3.SmoothDamp(transform.position, m_DesiredPosition, ref m_MoveVelocity, m_DampTime);
+        //view.transform.position = Vector3.SmoothDamp(view.transform.position, model.m_DesiredPosition, ref model.m_MoveVelocity, model.m_DampTime); // ref - write back to that variable
+        Vector3 tempMoveVelocity = model.MoveVelocity;
+        view.transform.position = Vector3.SmoothDamp(view.transform.position, model.DesiredPosition, ref tempMoveVelocity, model.DampTime);
+        model.MoveVelocity = tempMoveVelocity;
     }
 
     private void FindAveragePosition()
     {
         Vector3 averagePos = new Vector3();
-        int numTargets = 0;
+        int nTargets = 0;
         
-        for(int i=0; i <m_Targets.Length; i++)
+        for(int i = 0; i < model.TargetTransforms.Count; i++)
         {
-            if (!m_Targets[i].gameObject.activeSelf)
+            if (! model.TargetTransforms[i].gameObject.activeSelf)
                 continue;
 
-            averagePos += m_Targets[i].position;
-            numTargets++;
+            averagePos += model.TargetTransforms[i].position;
+            nTargets++;
         }
 
-        if (numTargets > 0)
-            averagePos /= numTargets;
-        averagePos.y = transform.position.y;
+        if (nTargets > 0)
+            averagePos /= nTargets;
+        averagePos.y = view.transform.position.y; // Update this
 
-        m_DesiredPosition = averagePos;
+        model.DesiredPosition = averagePos;
     }
 
-    private void Zoom()
+    public void Zoom()
     {
         float requiredSize = FindRequiredSize();
-        m_Camera.orthographicSize = Mathf.SmoothDamp(m_Camera.orthographicSize, requiredSize, ref m_ZoomSpeed, m_DampTime);
+        float tempZoomSpeed = model.ZoomSpeed;
+
+        view.Camera.orthographicSize = Mathf.SmoothDamp(view.Camera.orthographicSize, requiredSize, ref tempZoomSpeed, model.DampTime);
+        model.ZoomSpeed = tempZoomSpeed;
     }
 
     private float FindRequiredSize()
     {
-        Vector3 desiredLocaPos = transform.InverseTransformPoint(m_DesiredPosition);
+        Vector3 desiredLocaPos = view.transform.InverseTransformPoint(model.DesiredPosition);
 
         float size = 0f;
 
-        for (int i =0; i< m_Targets.Length; i++)
+        for (int i = 0; i < model.TargetTransforms.Count; i++)
         {
-            if (!m_Targets[i].gameObject.activeSelf)
+            if (! model.TargetTransforms[i].gameObject.activeSelf)
                 continue;
 
-            Vector3 targetLocalPos = transform.InverseTransformPoint(m_Targets[i].position);
-            Vector3 desiredPosToTarget = targetLocalPos = desiredLocaPos;
+            Vector3 targetLocalPos = view.transform.InverseTransformPoint(model.TargetTransforms[i].position);
+            Vector3 desiredPosToTarget = targetLocalPos - desiredLocaPos;
 
             size = Mathf.Max(size, Mathf.Abs(desiredPosToTarget.y));
-            size = Mathf.Max(size, Mathf.Abs(desiredPosToTarget.x) / m_Camera.aspect);
+            size = Mathf.Max(size, Mathf.Abs(desiredPosToTarget.x) / view.Camera.aspect);
         }
 
-        size += m_ScreenEdgeBuffer;
-        size = Mathf.Max(size, m_MinSize); // to make sure we're not too zoomed in
+        size += model.ScreenEdgeBuffer;
+        size = Mathf.Max(size, model.MinSize); // to make sure we're not too zoomed in
         return size;
     }
 
     public void SetStartPositionAndSize()
     {
         FindAveragePosition();
-        transform.position = m_DesiredPosition;
-        m_Camera.orthographicSize = FindRequiredSize();
+        view.transform.position = model.DesiredPosition;
+        view.Camera.orthographicSize = FindRequiredSize();
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void AddTarget(Transform transform)
     {
-        
+        if(! model.TargetTransforms.Contains(transform))
+        {
+            model.TargetTransforms.Add(transform);
+            Debug.Log("Target transform added name" + transform.gameObject.name);
+            UpdateCameraTargets();
+        }
     }
-
-    // Update is called once per frame
-    void Update()
+    public void RemoveTarget(Transform transform)
     {
-        
+        if (model.TargetTransforms.Contains(transform))
+        {
+            model.TargetTransforms.Remove(transform);
+            Debug.Log("Target transform removed name: " + transform.gameObject.name);
+            UpdateCameraTargets();
+        }
     }
 
-
-  
-    
+    private void UpdateCameraTargets()
+    {
+      // view.TargetTransforms = model.TargetTransforms;
+    }
 }

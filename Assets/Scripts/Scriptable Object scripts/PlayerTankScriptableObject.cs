@@ -7,5 +7,11 @@ public class PlayerTankScriptableObject: TankScriptableObject
 
     [Header("Movement")]
     public float MoveSpeed;
-    public float turnSpeed;
+    public float TurnSpeed;
+
+    [Header("Wheels")]
+    public float wheelRotationSpeed;
+
+    [Header("Turret")]
+    public float TurretSpinSpeed;
 }
