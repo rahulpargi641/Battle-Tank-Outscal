@@ -23,14 +23,12 @@ public class State
     protected Transform playerTransform;
     protected State nextState;
 
-
-    float visibleDist = 17.0f; // 10f
-    float visibleAngle = 90.0f; // 30f
-    float shootDist = 14.0f; // 7f
+    private float visibleDist = 17.0f; // 10f
+    private float visibleAngle = 90.0f; // 30f
+    private float shootDist = 14.0f; // 7f
 
     private float pathUpdateDelay = 0.2f;
     private float pathUpdateDeadline;
-
 
     public State(EnemyAIView enemyAIView, NavMeshAgent navMeshAgent, Animator animator, Transform playerTransform)
     {
@@ -83,6 +81,7 @@ public class State
     public bool CanAttackPlayer()
     {
         Vector3 playerDirection = playerTransform.position - enemyAIView.transform.position;
+
         if (playerDirection.magnitude < shootDist)
             return true;
         else

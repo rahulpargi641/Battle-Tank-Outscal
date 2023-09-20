@@ -18,4 +18,6 @@ MonoBehaviour:
   PlayerTankView: {fileID: 6974899829794256480, guid: 86cc5b4cde71e15438857a41cf1abed2,
     type: 3}
   MoveSpeed: 8
-  turnSpeed: 60
+  TurnSpeed: 60
+  wheelRotationSpeed: 900
+  TurretSpinSpeed: 90

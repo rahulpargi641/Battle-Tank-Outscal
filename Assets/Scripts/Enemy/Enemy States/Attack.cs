@@ -1,4 +1,3 @@
-using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
@@ -43,9 +42,7 @@ public class Attack : State
         if (Quaternion.Angle(enemyAIView.transform.rotation, lookRotation) < 0.1f)
         {
             isRotating = false; // Stop rotating
-            //Fire(); // Start firing after rotation completes
         }
-
 
         if (!CanAttackPlayer())
         {

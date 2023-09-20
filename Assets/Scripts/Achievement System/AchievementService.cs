@@ -12,6 +12,11 @@ public class AchievementService : MonoSingletonGeneric<AchievementService>
         EventService.Instance.OnEnemyDeathAction += EnemyDestroyed;
     }
 
+    private void OnDestroy()
+    {
+        EventService.Instance.OnEnemyDeathAction -= EnemyDestroyed;
+    }
+
     private void EnemyDestroyed()
     {
         achievementView.EnemyDestroyed();

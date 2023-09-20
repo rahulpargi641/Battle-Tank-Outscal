@@ -12,7 +12,7 @@ public class AchievementView : MonoBehaviour
     public void ShotFired()
     {
         achievementModel.NShotsFired++;
-        if(achievementModel.NShotsFired % 10 == 0)
+        if(achievementModel.NShotsFired == achievementModel.ShotsFiredThreshold)
         {
             EventService.Instance.InvokeShotsFiredAction(achievementModel.NShotsFired);
         }
@@ -22,10 +22,14 @@ public class AchievementView : MonoBehaviour
     {
         achievementModel.NEnemiesDestroyed++;
 
-        if (achievementModel.NEnemiesDestroyed % 5 == 0)
+        if (achievementModel.NEnemiesDestroyed % achievementModel.EnemiesDestroyedThreshold == 0)
         {
             EventService.Instance.InvokeEnemiesDestroyedAction(achievementModel.NEnemiesDestroyed);
             //GameAudioService.Instance.PlayAudio(GameAudio.SoundType.Explosion);
+            Debug.Log("Enemies Destroyed achiement");
         }
+
+        if (achievementModel.NEnemiesDestroyed == achievementModel.MaxEnemies)
+            EventService.Instance.InvokeLevelCompleteAction();
     }
 }

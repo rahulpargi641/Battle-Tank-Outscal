@@ -269,7 +269,7 @@ NavMeshAgent:
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 100
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -292,8 +292,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HealthSlider: {fileID: 4526913682676575322}
   HealthFillImage: {fileID: 4526913684226948209}
-  FullHealthColor: {r: 0.013207495, g: 0.48939282, b: 1, a: 1}
-  ZeroHealthColor: {r: 1, g: 0, b: 0, a: 1}
+  FullHealthColor: {r: 0.8773585, g: 0.069762036, b: 0.011587708, a: 0.8509804}
+  ZeroHealthColor: {r: 1, g: 0, b: 0, a: 0.8509804}
   health: 100
 --- !u!114 &4116139088284442601
 MonoBehaviour:
@@ -869,7 +869,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: b7275cbf36c85ea429b0ea4cefeaa312, type: 2}
+      objectReference: {fileID: 2100000, guid: be2ef26c00fd5ac4fafddd4c30895e64, type: 2}
     - target: {fileID: 636883874405053261, guid: a30540c41d7d5ed4281d72b4916afb5e,
         type: 3}
       propertyPath: m_Layer
@@ -959,7 +959,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: b7275cbf36c85ea429b0ea4cefeaa312, type: 2}
+      objectReference: {fileID: 2100000, guid: be2ef26c00fd5ac4fafddd4c30895e64, type: 2}
     - target: {fileID: 7561097175505383651, guid: a30540c41d7d5ed4281d72b4916afb5e,
         type: 3}
       propertyPath: m_Layer
@@ -969,7 +969,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: b7275cbf36c85ea429b0ea4cefeaa312, type: 2}
+      objectReference: {fileID: 2100000, guid: be2ef26c00fd5ac4fafddd4c30895e64, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a30540c41d7d5ed4281d72b4916afb5e, type: 3}
 --- !u!4 &605584306137177177 stripped
