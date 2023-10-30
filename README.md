@@ -16,9 +16,8 @@
     - Enemies patrol the area and chase you when detected, attacking until you are defeated.
     
     Dynamic Camera System:
-    - A seamless camera system tracks the player tank's movements smoothly.
-    - When enemies are detected, the camera focuses on them, returning to the normal view when you are
-      no longer detected.
+    - A seamless camera system smoothly tracks the player tank's movements, focusing on detected enemies 
+      and returning to the normal view when you are no longer detected.
     
     User Interface (UI):
     - Visually appealing Main Menu, Pause Menu, Game Over, and Level Complete screens.
@@ -52,28 +51,29 @@
         - Utilized the observer pattern for decoupling classes and handling events such as player death, 
           enemy destruction, shots fired, and level completion.
         - This pattern enables communication between different game components, notifying the achievement system
-          of enemy destruction, notifying level completion when all enemies are defeated, and managing the game over screen
-        activation.
+          of enemy destruction, notifying level completion when all enemies are defeated, and managing the 
+          game over screen activation.
           
     Scriptable Objects:
-         - Scriptable objects were utilized to configure player and enemy data, providing a flexible and 
-           efficient approach for handling their attributes.
+         - Scriptable objects were used for configuring player and enemy tanks efficiently, allowing for flexibility
+           in handling their attributes and tank types..
        
 #### Performance Optimization:
-    - To optimize performance, object pooling is implemented for enemies, damage orbs, pickups, and various 
-      VFX, effectively managing memory and CPU usage.
+    - To optimize performance, object pooling is used for enemies, shells, and various particle VFX, efficiently 
+      managing memory and CPU usage.
 
 #### Level Design:
-    - Created using Unity's Battle Tank base artwork.
-    - Strategically positioned enemy tanks to all the patrollig area so intruders can't infiltrate the area.
+    - Designed using Unity's Battle Tank base artwork.
+    - Strategically placed enemy tanks throughout the patrolling area to prevent intruders from infiltrating..
 
 #### Enchanced Camera Tracking
-    - Employed Cinemachine to smoothly follow the player. 
+    - Developed custom logic for the camera system to smoothly track the player tank's movements.
+    - When enemies are detected, the camera automatically focuses on them, reverting to the normal view once you are
+      no longer detected.
     
-### Focus
+### Dynamic Camera System
     - Code Quality and Organization.
     - Architecture Design for Flexibility and Scalability.
-    - Visually appealing with high-quality 3D graphics and immersive sound effects.
     
 ### Gameplay Demonstration
     For a visual demonstration of the gameplay, watch video on YouTube.
