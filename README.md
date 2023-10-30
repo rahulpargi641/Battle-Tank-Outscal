@@ -54,8 +54,8 @@
           game over screen activation.
           
     Scriptable Objects:
-         - Scriptable objects were used for configuring player and enemy tanks efficiently, allowing for flexibility
-           in handling their attributes and tank types..
+         - Scriptable objects were used for configuring player and enemy tanks efficiently, allowing for 
+           flexibility in handling their attributes and tank types..
        
 #### Performance Optimization:
     - To optimize performance, object pooling is used for enemies, shells, and various particle VFX, efficiently 
