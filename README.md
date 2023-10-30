@@ -58,7 +58,7 @@
            flexibility in handling their attributes and tank types..
        
 #### Performance Optimization:
-    - To optimize performance, object pooling is used for enemies, shells, and various particle VFX, efficiently 
+    - To optimize performance, object pooling is used for enemies, shells, and various VFXs, efficiently 
       managing memory and CPU usage.
 
 #### Level Design:
