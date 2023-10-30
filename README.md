@@ -80,6 +80,3 @@
 ### Play the Game
     To experience the game firsthand, play it directly by following this playable link.
 
-### Credits
-#### Assets
-- Character Models and Game Map: [Instructor's Name](link-to-instructor-profile)
