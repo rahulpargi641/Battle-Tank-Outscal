@@ -9,7 +9,7 @@
     - Player tank actions include moving, rotating, and shooting shells.
     - Two types of attacks:
        - Short Range Attack (fire shells from close distance)
-       - Ranged Attack (Hold down the left click and shoot shells from greater distance)
+       - Ranged Attack (hold left-click to shoot shells from greater distance)
 
     Enemy AI:
     - Enemies patrol the area and chase you when detected, attacking until you are defeated.
