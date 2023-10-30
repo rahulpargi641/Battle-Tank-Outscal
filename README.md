@@ -1,9 +1,8 @@
 # Battle-tank-game-Outscal
 
 ### Introduction
-    Battle Tank is a 3D tank game where the player's tank infiltrates enemy territory to eliminate 
-    patrolling enemy tanks and accomplish the mission. This project prioritizes code quality and future
-    adaptability.
+    Battle Tank is a 3D tank game where the player's tank infiltrates enemy territory to eliminate patrolling
+    enemy tanks and accomplish the mission. This project prioritizes code quality and future adaptability.
     
 ### Features    
     Core Gameplay:
