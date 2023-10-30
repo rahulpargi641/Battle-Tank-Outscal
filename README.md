@@ -17,8 +17,8 @@
     
     Dynamic Camera System:
     - A seamless camera system tracks the player tank's movements smoothly.
-    - When enemies are detected, the camera focuses on them, returning to the normal view when 
-      you are no longer detected.
+    - When enemies are detected, the camera focuses on them, returning to the normal view when you are
+      no longer detected.
     
     User Interface (UI):
     - Visually appealing Main Menu, Pause Menu, Game Over, and Level Complete screens.
@@ -37,26 +37,24 @@
            - The Model manages data.
            - The View is responsible for UI-related tasks and input handling.
            - The Controller is responsible for updating both the View and Model.
-        - Classes for PlayerTank, EnemyTank, Camera, Shell, Level, GameUI, have been implemented
-          following the MVC pattern.
+        - Classes for PlayerTank, EnemyTank, Camera, Shell, Level, GameUI, have been implemented following
+          the MVC pattern.
 
     Singletons:
         - Centralized control is ensured through the implementation of Singleton patterns.
-        - Essential services such as PlayerService, EnemyService, PickupsService(Healing Orb), 
-          DamageOrbService(FireOrb), GameService, CameraService, ShellService, ParticleSystem Service, 
-          AudioService, GameUIService, LevelService are designed as Singletons.
+        - Essential services such as PlayerService, EnemyService, CameraService, ShellService, AudioService, 
+          ParticleSystem Service, GameUIService, LevelService are designed as Singletons.
           
     State Pattern:
-        - Utilized the state pattern to manage player and enemy states.
-          - Player States : Idle, run, roll, attack, dash attack, hurt, and death.
-          - Enemy States: Idle, run, patrol, pursue, hurt, and death.
+        - Utilized the state pattern to manage enemy states sucn as idle, run, patrol, pursue, attack.
     
     Observer Pattern:
-        - Employed the observer pattern to decouple classes and facilitate event handling for events such as 
-          player death, enemy hit, enemy death, and enemy group death.
-        - This facilitates the activation of the game over screen and the opening of the gate when the enemy 
-          group is defeated.
-
+        - Utilized the observer pattern for decoupling classes and handling events such as player death, 
+          enemy destruction, shots fired, and level completion.
+        - This pattern enables communication between different game components, notifying the achievement system
+          of enemy destruction, notifying level completion when all enemies are defeated, and managing the game over screen
+        activation.
+          
     Scriptable Objects:
          - Scriptable objects were utilized to configure player and enemy data, providing a flexible and 
            efficient approach for handling their attributes.
@@ -71,10 +69,6 @@
 
 #### Enchanced Camera Tracking
     - Employed Cinemachine to smoothly follow the player. 
-
-#### Animations:
-    - The Player Animator handles character animations such as Idle, Run, Roll, attack, and Hurt.
-    - The Enemy Animator, derived from the Player Animator, handles animations such as idle, run, and attacks.
     
 ### Focus
     - Code Quality and Organization.
