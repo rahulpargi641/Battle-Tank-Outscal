@@ -63,12 +63,12 @@
 
 #### Level Design:
     - Designed using Unity's Battle Tank base artwork.
-    - Strategically placed enemy tanks throughout the patrolling area to prevent intruders from infiltrating..
+    - Strategically placed enemy tanks throughout the patrolling area to prevent intruders from infiltrating.
 
 #### Enchanced Camera Tracking
     - Developed custom logic for the camera system to smoothly track the player tank's movements.
-    - When enemies are detected, the camera automatically focuses on them, reverting to the normal view once you are
-      no longer detected.
+    - When enemies are detected, the camera automatically focuses on them, reverting to the normal view once you 
+      are no longer detected.
     
 ### Dynamic Camera System
     - Code Quality and Organization.
