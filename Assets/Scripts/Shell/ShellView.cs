@@ -22,7 +22,7 @@ public class ShellView : MonoBehaviour
         DoExplosionAndDamageToSurroundings(colliders);
 
         ParticleSystemService.Instance.SpawnParticles(new ParticleEvent(ParticleEventType.ShellExplosion, transform.position));
-        AudioService.Instance.PlayShellExplosionSound();
+        AudioService.Instance.PlaySound(SoundType.ShellExplosion);
         ShellService.Instance.ReturnShellToPool(this);
     }
 

@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class AchievementService : MonoSingletonGeneric<AchievementService>
 {
-    private AchievementView achievementView;
+    private AchievementController achievementController;
    
     void Start()
     {
         AchievementModel achievementModel= new AchievementModel();
-        achievementView = new AchievementView(achievementModel);
+        achievementController = new AchievementController(achievementModel);
 
         EventService.Instance.OnEnemyDeathAction += EnemyDestroyed;
     }
@@ -19,11 +19,11 @@ public class AchievementService : MonoSingletonGeneric<AchievementService>
 
     private void EnemyDestroyed()
     {
-        achievementView.EnemyDestroyed();
+        achievementController.EnemyDestroyed();
     }
 
     public void ShotFired()
     {
-        achievementView.ShotFired();
+        achievementController.ShotFired();
     }
 }

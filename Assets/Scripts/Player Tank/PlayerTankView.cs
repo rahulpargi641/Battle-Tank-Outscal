@@ -15,8 +15,8 @@ public class PlayerTankView: MonoBehaviour
     private string movementAxisName;
     private string turnAxisName;
 
-    private float movementInputValue;
-    private float turnInputValue;
+    private float moveInput;
+    private float turnInput;
 
     private void Awake()
     {
@@ -26,14 +26,18 @@ public class PlayerTankView: MonoBehaviour
     private void OnEnable()
     {
         Rigidbody.isKinematic = false;
-        movementInputValue = 0f;
-        turnInputValue = 0f;
+        moveInput = 0f;
+        turnInput = 0f;
     }
 
     private void Start()
     {
         movementAxisName = "Vertical";
         turnAxisName = "Horizontal";
+
+        gameObject.SetActive(true);
+
+        AudioService.Instance.PlayEngineSound(0.1f, 0.1f);
     }
 
     private void Update()
@@ -42,9 +46,9 @@ public class PlayerTankView: MonoBehaviour
 
         ReadMovementInput();
 
-        PlayVaryingPtichEngineSound();
+        PlayVaryingPitchEngineSound();
 
-        PlayerTankController.TurnWheels(movementInputValue, turnInputValue);
+        PlayerTankController.TurnWheels(moveInput, turnInput);
 
         ProcessTurretSpinning();
     }
@@ -59,24 +63,24 @@ public class PlayerTankView: MonoBehaviour
         Rigidbody.isKinematic = true;
     }
 
-    private void PlayVaryingPtichEngineSound()
+    private void PlayVaryingPitchEngineSound()
     { 
-        AudioService.Instance.PlayEngineSound(movementInputValue, turnInputValue);
+        AudioService.Instance.PlayEngineSound(moveInput, turnInput);
     }
 
     private void ReadMovementInput()
     {
-        movementInputValue = Input.GetAxis(movementAxisName);
-        turnInputValue = Input.GetAxis(turnAxisName);
+        moveInput = Input.GetAxis(movementAxisName);
+        turnInput = Input.GetAxis(turnAxisName);
     }
 
     private void ProcessTankMovement()
     {
-        if (movementInputValue != 0)
-            PlayerTankController.MoveTank(movementInputValue);
+        if (moveInput != 0)
+            PlayerTankController.MoveTank(moveInput);
 
-        if (turnInputValue != 0)
-           PlayerTankController.TurnTank(turnInputValue);
+        if (turnInput != 0)
+           PlayerTankController.TurnTank(turnInput);
     }
 
     private void ProcessTurretSpinning()

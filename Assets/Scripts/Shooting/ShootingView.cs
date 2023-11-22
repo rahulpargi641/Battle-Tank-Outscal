@@ -45,7 +45,8 @@ public class ShootingView : MonoBehaviour
             model.Fired = false;  // have not fired yet 
             model.CurrentLaunchForce = model.MinLaunchForce;
 
-            AudioService.Instance.PlayShotChargingSound();
+            //AudioService.Instance.PlayShotChargingSound();
+            AudioService.Instance.PlaySound(SoundType.ShotCharging);
 
         }
         else if (Input.GetButton(model.FireButton) && !model.Fired)
@@ -72,7 +73,8 @@ public class ShootingView : MonoBehaviour
        // Rigidbody shellInstance = Instantiate(shellPrefab, m_FireTransform.position, m_FireTransform.rotation) as Rigidbody;
         shellRigidbody.velocity = model.CurrentLaunchForce * fireTransform.forward;
 
-        AudioService.Instance.PlayShotFiringSound();
+        AudioService.Instance.StopSound(SoundType.ShotCharging);
+        AudioService.Instance.PlaySound(SoundType.ShotFiring);
 
         model.CurrentLaunchForce = model.MinLaunchForce;
 

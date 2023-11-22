@@ -79,6 +79,6 @@ public class Attack : State
         Rigidbody shellRigidbody = shell.GetComponent<Rigidbody>();
         shellRigidbody.velocity = CurrentLaunchForce * fireTransform.forward;
 
-        AudioService.Instance.PlayShotFiringSound();
+        AudioService.Instance.PlaySound(SoundType.ShotFiring);
     }
 }

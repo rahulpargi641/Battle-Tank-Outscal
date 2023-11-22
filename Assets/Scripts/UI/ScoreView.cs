@@ -5,16 +5,22 @@ using UnityEngine;
 
 public class ScoreView : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI textMeshProUI;
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] TextMeshProUGUI score;
+    private int enemyDestroyed;
+
+    private void Start()
     {
-        
+        EventService.Instance.OnEnemyDeathAction += UpdateScore;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDestroy()
     {
-        
+        EventService.Instance.OnEnemyDeathAction -= UpdateScore;
+    }
+
+    private void UpdateScore()
+    {
+        enemyDestroyed++;
+        score.text = "Enemies Destroyed: " + enemyDestroyed.ToString();
     }
 }

@@ -4,15 +4,15 @@ using UnityEngine.UI;
 
 public class HealthView : MonoBehaviour, IDamageable
 {
-    public event Action onPlayerDeathAction;
-
-    HealthModel healthModel;
     public Slider HealthSlider;
     public Image HealthFillImage;
     public Color FullHealthColor;
     public Color ZeroHealthColor;
 
     public int health;
+
+    private HealthModel healthModel;
+
 
     private void OnEnable()
     {
@@ -40,7 +40,7 @@ public class HealthView : MonoBehaviour, IDamageable
     private void OnDeath()
     {
         ParticleSystemService.Instance.SpawnParticles(new ParticleEvent(ParticleEventType.TankExplosion, transform.position));
-        AudioService.Instance.PlayTankExplosionSound();
+        AudioService.Instance.PlaySound(SoundType.TankExplosion);
 
         PlayerTankView player = gameObject.GetComponent<PlayerTankView>();
         EnemyAIView enemy = gameObject.GetComponent<EnemyAIView>();

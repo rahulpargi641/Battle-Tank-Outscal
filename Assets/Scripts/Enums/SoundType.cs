@@ -1,6 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+
 
 public enum SoundType : short
 {
@@ -8,5 +6,6 @@ public enum SoundType : short
     EngineIdle, EngineDriving,
     ShotCharging, ShotFiring,
     TankExplosion, ShellExplosion,
-    BackgroundMusic
+    BackgroundMusic,
+    ButtonClick
 }
