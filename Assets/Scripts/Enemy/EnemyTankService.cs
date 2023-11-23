@@ -23,11 +23,13 @@ public class EnemyTankService : MonoSingletonGeneric<EnemyTankService>
         for (int i = 0; i < numberOfTanks; i++)
         { 
             EnemyTankScriptableObject enemyTankSO = enemyTankSOList.EnemyTanks[0];
+
             EnemyTankModel enemyTankModel = new EnemyTankModel(enemyTankSO);
             EnemyAIView enemyTankView = SpawnRandomlyInsideSpehre(enemyTankSO);
             //enemyTankController = new EnemyTankController(enemyTankModel, enemyTankSO.EnemyTankView);
             enemyTankController = tankPoolService.GetEnemyTankContoller(enemyTankModel, enemyTankView);
-            enemyTankController.Enable();
+            enemyTankController.OnEnable();
+
             spawnedEnemyControllers.Add(enemyTankController);
         }
         return spawnedEnemyControllers;
@@ -42,7 +44,7 @@ public class EnemyTankService : MonoSingletonGeneric<EnemyTankService>
         return enemyTankView;
     }
 
-    void ReturnTank()
+    public void ReturnTankToPool()
     {
         enemyTankController.OnDisable();
         tankPoolService.ReturnItem(enemyTankController);

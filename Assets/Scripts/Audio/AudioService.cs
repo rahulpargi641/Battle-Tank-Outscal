@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AudioService : MonoSingletonGeneric<AudioService>
 {
-    [SerializeField] AudioSource movementAudioSrc;
+    [SerializeField] AudioSource movementAudioSrc; // audio source for playing engine idle and engine driving
     [SerializeField] List<Sound> sounds = new List<Sound>();
 
     private Dictionary<SoundType, Sound> soundDictionary = new Dictionary<SoundType, Sound>();

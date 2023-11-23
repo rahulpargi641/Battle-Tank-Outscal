@@ -6,7 +6,7 @@ using UnityEngine;
 public class ScoreView : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI score;
-    private int enemyDestroyed;
+    private int nEnemyDestroyed;
 
     private void Start()
     {
@@ -20,7 +20,7 @@ public class ScoreView : MonoBehaviour
 
     private void UpdateScore()
     {
-        enemyDestroyed++;
-        score.text = "Enemies Destroyed: " + enemyDestroyed.ToString();
+        nEnemyDestroyed++;
+        score.text = "Enemies Destroyed: " + nEnemyDestroyed.ToString();
     }
 }

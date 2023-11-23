@@ -1,5 +1,5 @@
 
-public class LevelCompleteModel 
+public class LevelCompleteModel // add variables
 {
     public LevelCompleteModel()
     {}

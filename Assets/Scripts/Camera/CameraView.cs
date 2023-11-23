@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraView : MonoBehaviour
@@ -19,12 +17,5 @@ public class CameraView : MonoBehaviour
     {
         Controller.Move();
         Controller.Zoom();
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

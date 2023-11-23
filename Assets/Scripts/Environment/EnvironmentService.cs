@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnvironmentService : MonoSingletonGeneric<EnvironmentService>
+public class EnvironmentService : MonoSingletonGeneric<EnvironmentService> // yet to implement
 {
-   [SerializeField] List<Transform> patrolPoints;
+   [SerializeField] List<Transform> patrolPoints; // partrol points parent transform for each enemy tank
 
     public List<Transform> PatrolPoints => patrolPoints; // lamda expression
 

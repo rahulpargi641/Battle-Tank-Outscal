@@ -46,10 +46,10 @@ public class HealthView : MonoBehaviour, IDamageable
         EnemyAIView enemy = gameObject.GetComponent<EnemyAIView>();
 
         if (player)
-            EventService.Instance.InvokePlayerDeathAction();
+            EventService.Instance.InvokePlayerDeathEvent();
 
         else if (enemy) 
-            EventService.Instance.InvokeEnemyDeathAction();
+            EventService.Instance.InvokeEnemyDeathEvent();
 
         gameObject.SetActive(false);
     }

@@ -5,6 +5,7 @@ using UnityEngine.AI;
 public class EnemyAIView : MonoBehaviour
 {
     public EnemyTankController Controller { private get; set; }
+
     [SerializeField] Transform playerTransform;
     [SerializeField] Transform fireTransform;
     [SerializeField] Transform[] patrolPoints;

@@ -8,6 +8,7 @@ public class Pursue : State
         : base(enemyAIView, navMeshAgent, animator, playerTransform)
     {
         state = EState.Pursue;
+
         navMeshAgent.speed = 5f;
         navMeshAgent.isStopped = false;
     }
@@ -42,13 +43,13 @@ public class Pursue : State
     private async Task RemoveCameraAsync()
     {
         await Task.Delay(6000);
+
         CameraService.Instance.RemoveTarget(enemyAIView.gameObject.transform);
     }
 
     public override void Exit()
     {
         //animator.ResetTrigger("IsRunning");
-
         base.Exit();
     }
 }

@@ -17,26 +17,26 @@ public class EventService : MonoSingletonGeneric<EventService>
         base.Awake();
     }
 
-    public void InvokeShotsFiredAction(int nShotsFired)
+    public void InvokeShotsFiredEvent(int nShotsFired)
     {
         OnShotsFiredAction?.Invoke(nShotsFired);
     }
 
-    public void InvokeEnemiesDestroyedAction(int nEnemiesDestroyed)
+    public void InvokeEnemiesDestroyedEvent(int nEnemiesDestroyed)
     {
         OnEnemiesDestroyedAction?.Invoke(nEnemiesDestroyed);
     }
 
-    internal void InvokePlayerDeathAction()
+    internal void InvokePlayerDeathEvent()
     {
         OnPlayerDeathAction?.Invoke();
     }
-    public void InvokeEnemyDeathAction()
+    public void InvokeEnemyDeathEvent()
     {
         OnEnemyDeathAction?.Invoke();
     }
 
-    public void InvokeLevelCompleteAction()
+    public void InvokeLevelCompleteEvent()
     {
         onLevelCompleteAction?.Invoke();
     }

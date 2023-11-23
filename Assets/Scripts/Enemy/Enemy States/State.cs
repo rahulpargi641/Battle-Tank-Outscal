@@ -88,11 +88,7 @@ public class State
             return false;
     }
 
-    internal void Initialize()
-    {
-        throw new NotImplementedException();
-    }
-    protected virtual void EnemyDestroyed()
+    protected virtual void EnemyDestroyed() // stop processing enemy state machine
     {
         //nextState = null;
         Debug.Log("Enemy Destroyed");

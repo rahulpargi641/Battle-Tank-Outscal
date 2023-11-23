@@ -15,16 +15,11 @@ public class CameraController
         //model.TargetTransforms = view.TargetTransforms;
     }
 
-    private void FixedUpdate()
-    {
-        //Move();
-        //Zoom();
-    }
     public void Move()
     {
          FindAveragePosition();
 
-        //view.transform.position = Vector3.SmoothDamp(view.transform.position, model.m_DesiredPosition, ref model.m_MoveVelocity, model.m_DampTime); // ref - write back to that variable
+        //view.transform.position = Vector3.SmoothDamp(view.transform.position, model.m_DesiredPosition, ref model.m_MoveVelocity, model.m_DampTime);
         Vector3 tempMoveVelocity = model.MoveVelocity;
         view.transform.position = Vector3.SmoothDamp(view.transform.position, model.DesiredPosition, ref tempMoveVelocity, model.DampTime);
         model.MoveVelocity = tempMoveVelocity;
@@ -95,7 +90,7 @@ public class CameraController
         if(! model.TargetTransforms.Contains(transform))
         {
             model.TargetTransforms.Add(transform);
-            Debug.Log("Target transform added name" + transform.gameObject.name);
+            //Debug.Log("Target transform added name" + transform.gameObject.name);
             UpdateCameraTargets();
         }
     }
@@ -104,7 +99,7 @@ public class CameraController
         if (model.TargetTransforms.Contains(transform))
         {
             model.TargetTransforms.Remove(transform);
-            Debug.Log("Target transform removed name: " + transform.gameObject.name);
+            //Debug.Log("Target transform removed name: " + transform.gameObject.name);
             UpdateCameraTargets();
         }
     }

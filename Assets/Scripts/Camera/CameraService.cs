@@ -4,8 +4,10 @@ using UnityEngine;
 public class CameraService : MonoSingletonGeneric<CameraService>
 {
     [SerializeField] CameraView cameraView;
-    private CameraController cameraController;
+
     public List<Transform> TargetTransforms = new List<Transform>();
+
+    private CameraController cameraController;
 
     // Start is called before the first frame update
     void Start()

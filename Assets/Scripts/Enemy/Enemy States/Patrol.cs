@@ -10,6 +10,7 @@ public class Patrol : State
         : base(enemyAIView, navMeshAgent, animator, playerTransform)
     {
         state = EState.Patrol;
+
         navMeshAgent.speed = 2;
         navMeshAgent.isStopped = false;
         nPatrolPoints = enemyAIView.PatrolPoints.Length;

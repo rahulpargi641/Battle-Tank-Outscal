@@ -3,6 +3,7 @@ public class EnemyTankController
 {
     private EnemyTankModel model;
     private EnemyAIView view;
+
     public EnemyTankController(EnemyTankModel model, EnemyAIView view)
     {
         this.model = model;
@@ -17,7 +18,7 @@ public class EnemyTankController
         //view.Disable();
     }
 
-    public void Enable()
+    public void OnEnable()
     {
         //view.Enabled();
     }

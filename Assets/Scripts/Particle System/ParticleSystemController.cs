@@ -5,7 +5,7 @@ using UnityEngine;
 public class ParticleSystemController : ParticleEventObserver
 {
     private ParticleSystemModel model;
-    ParticlePoolService particlePoolService;
+    private ParticlePoolService particlePoolService;
 
     public ParticleSystemController(ParticleSystemModel model)
     {
@@ -20,10 +20,12 @@ public class ParticleSystemController : ParticleEventObserver
         {
             //ParticleSystem particleSystem = GameObject.Instantiate(particleSystemPrefab) as ParticleSystem;
             particlePoolService.Initialize(particleSystemPrefab);
+
             ParticleSystem particleSystem = particlePoolService.GetParticleSystem();
             particleSystem.gameObject.SetActive(true);
             particleSystem.transform.position = particleEvent.Position;
             particleSystem.Play();
+
             ReturnParticleSystemToPoolAsync(particleSystem);
         }
         else

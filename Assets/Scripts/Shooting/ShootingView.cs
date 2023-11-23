@@ -41,11 +41,10 @@ public class ShootingView : MonoBehaviour
         }
         else if (Input.GetButtonDown(model.FireButton))
         {
-            // have we pressed fire for the first time
+            // have fire pressed for the first time
             model.Fired = false;  // have not fired yet 
             model.CurrentLaunchForce = model.MinLaunchForce;
 
-            //AudioService.Instance.PlayShotChargingSound();
             AudioService.Instance.PlaySound(SoundType.ShotCharging);
 
         }

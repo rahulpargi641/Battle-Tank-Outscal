@@ -25,7 +25,9 @@ public class Attack : State
         navMeshAgent.isStopped = true;
         isRotating = true; // Start rotating when entering attack state
         _ = FireAsync();
-        CameraService.Instance.AddTarget(enemyAIView.gameObject.transform);
+
+        CameraService.Instance.AddTarget(enemyAIView.gameObject.transform); // camera focuses on the enemy tank as well
+
         base.Enter();
     }
 
@@ -38,7 +40,7 @@ public class Attack : State
         Quaternion lookRotation = Quaternion.LookRotation(playerDirection);
         enemyAIView.transform.rotation = Quaternion.Slerp(enemyAIView.transform.rotation, lookRotation, rotationSpeed * Time.deltaTime);
 
-        // Check if the rotation has completed
+        // Check if the rotation or enemy turning towards player has completed
         if (Quaternion.Angle(enemyAIView.transform.rotation, lookRotation) < 0.1f)
         {
             isRotating = false; // Stop rotating
@@ -56,7 +58,9 @@ public class Attack : State
         //animator.ResetTrigger("IsShooting");
         continueAttacking = false; // Stop the attacking loop
         isRotating = true; // Restore rotation behavior when exiting attack state
+
         CameraService.Instance.RemoveTarget(enemyAIView.gameObject.transform);
+
         base.Exit();
     }
 
@@ -64,13 +68,14 @@ public class Attack : State
     {
         continueAttacking = false;
     }
-    private async Task FireAsync()
+    private async Task FireAsync() // keeps attacking at 1 second interval time
     {
         while (continueAttacking)
         {
             await Task.Delay(1000);
-            if(! isRotating)
-            Fire();
+
+            if(!isRotating) // Check if enemy tank trying to get into the position for attacking
+                Fire();
         }
     }
     private void Fire()

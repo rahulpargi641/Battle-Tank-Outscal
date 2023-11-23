@@ -2,33 +2,33 @@ using UnityEngine;
 
 public class AchievementController : MonoBehaviour
 {
-    AchievementModel achievementModel;
+    private AchievementModel model;
 
-   public AchievementController(AchievementModel achievementModel)
+    public AchievementController(AchievementModel model)
     {
-        this.achievementModel = achievementModel;
+        this.model = model;
     }
 
     public void ShotFired()
     {
-        achievementModel.NShotsFired++;
-        if(achievementModel.NShotsFired == achievementModel.ShotsFiredThreshold)
+        model.NShotsFired++;
+        if(model.NShotsFired == model.ShotsFiredThreshold)
         {
-            EventService.Instance.InvokeShotsFiredAction(achievementModel.NShotsFired);
+            EventService.Instance.InvokeShotsFiredEvent(model.NShotsFired);
         }
     }
 
     public void EnemyDestroyed()
     {
-        achievementModel.NEnemiesDestroyed++;
+        model.NEnemiesDestroyed++;
 
-        if (achievementModel.NEnemiesDestroyed % achievementModel.EnemiesDestroyedThreshold == 0)
+        if (model.NEnemiesDestroyed % model.EnemiesDestroyedThreshold == 0)
         {
-            EventService.Instance.InvokeEnemiesDestroyedAction(achievementModel.NEnemiesDestroyed);
+            EventService.Instance.InvokeEnemiesDestroyedEvent(model.NEnemiesDestroyed);
             Debug.Log("Enemies Destroyed achiement");
         }
 
-        if (achievementModel.NEnemiesDestroyed == achievementModel.MaxEnemies)
-            EventService.Instance.InvokeLevelCompleteAction();
+        if (model.NEnemiesDestroyed == model.MaxEnemies)
+            EventService.Instance.InvokeLevelCompleteEvent();
     }
 }

@@ -32,17 +32,17 @@ public class PlayerTankView: MonoBehaviour
 
     private void Start()
     {
+        gameObject.SetActive(true);
+
         movementAxisName = "Vertical";
         turnAxisName = "Horizontal";
 
-        gameObject.SetActive(true);
-
-        AudioService.Instance.PlayEngineSound(0.1f, 0.1f);
+        AudioService.Instance.PlayEngineSound(0.1f, 0.1f); // plays engine idle sound at the start
     }
 
     private void Update()
     {
-        CameraService.Instance.AddTarget(transform);
+        CameraService.Instance.AddTarget(transform); // camera focuses on the player
 
         ReadMovementInput();
 
