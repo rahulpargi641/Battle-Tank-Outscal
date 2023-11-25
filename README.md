@@ -76,7 +76,11 @@
     
 ### Gameplay Demonstration
     For a visual demonstration of the gameplay, watch video on YouTube.
+[Youtube Video Link](https://youtu.be/05um7aARtk4)
     
 ### Play the Game
     To experience the game firsthand, play it directly by following this playable link.
+[Play in browser(WebGl)](https://rahul-pargi.itch.io/battle-tank)
 
+    - For the best performance, download and play the .exe file from this link:
+[Download .exe file](https://drive.google.com/file/d/1XXw0tlL_lcK2oq6CgBFeg2mBTmgTK9Xn/view?usp=sharing)
