@@ -23,13 +23,13 @@
     - The Pause screen offers convenient options for resuming the game or quitting.
     
 ### Screenshots
-![StartMenu](./Screenshots/MainMenu)
-![Tank](./Screenshots/Tank)
-![TankFighting](./Screenshots/TankFighting)
-![TankFighting3](./Screenshots/TankFighting3)
-![AchievementSystem](./Screenshots/AchievementSystem)
-![AchievementEnemyDestroyed](./Screenshots/AchievementEnemyDestroyed)
-![LevelComplete](./Screenshots/LevelComplete)
+![StartMenu](./Screenshots/MainMenu.png)
+![Tank](./Screenshots/Tank.png)
+![TankFighting](./Screenshots/TankFighting.png)
+![TankFighting3](./Screenshots/TankFighting3.png)
+![AchievementSystem](./Screenshots/AchievementSystem.png)
+![AchievementEnemyDestroyed](./Screenshots/AchievementEnemyDestroyed.png)
+![LevelComplete](./Screenshots/LevelComplete.png)
   
 ### Code Structure and Game Design
 #### Code Structure
