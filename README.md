@@ -80,11 +80,11 @@
     - Architecture Design for Flexibility and Scalability.
     
 ### Gameplay Demonstration
-    For a visual demonstration of the gameplay, watch video on YouTube.
-[Youtube Video Link](https://youtu.be/05um7aARtk4)
+    - For a visual demonstration of the gameplay, watch video on YouTube.
+[Youtube video link](https://youtu.be/05um7aARtk4)
     
 ### Play the Game
-    To experience the game firsthand, play it directly by following this playable link.
+    - To experience the game firsthand, play it directly by following this playable link.
 [Play in browser(WebGl)](https://rahul-pargi.itch.io/battle-tank)
 
     - For the best performance, download and play the .exe file from this link:
