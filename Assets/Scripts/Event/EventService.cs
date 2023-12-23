@@ -9,13 +9,7 @@ public class EventService : MonoSingletonGeneric<EventService>
     public event Action OnEnemyDeathAction;
 
     public event Action onLevelCompleteAction;
-
     //public event Action<ParticleEffectType, Vector3> onGameObjectDestroyed;
-
-    private void Awake()
-    {
-        base.Awake();
-    }
 
     public void InvokeShotsFiredEvent(int nShotsFired)
     {

@@ -12,10 +12,9 @@ public class AchievementController : MonoBehaviour
     public void ShotFired()
     {
         model.NShotsFired++;
+
         if(model.NShotsFired == model.ShotsFiredThreshold)
-        {
             EventService.Instance.InvokeShotsFiredEvent(model.NShotsFired);
-        }
     }
 
     public void EnemyDestroyed()
@@ -23,10 +22,7 @@ public class AchievementController : MonoBehaviour
         model.NEnemiesDestroyed++;
 
         if (model.NEnemiesDestroyed % model.EnemiesDestroyedThreshold == 0)
-        {
             EventService.Instance.InvokeEnemiesDestroyedEvent(model.NEnemiesDestroyed);
-            Debug.Log("Enemies Destroyed achiement");
-        }
 
         if (model.NEnemiesDestroyed == model.MaxEnemies)
             EventService.Instance.InvokeLevelCompleteEvent();

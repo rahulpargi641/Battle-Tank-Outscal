@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class PlayerTankView: MonoBehaviour
@@ -63,15 +62,15 @@ public class PlayerTankView: MonoBehaviour
         Rigidbody.isKinematic = true;
     }
 
-    private void PlayVaryingPitchEngineSound()
-    { 
-        AudioService.Instance.PlayEngineSound(moveInput, turnInput);
-    }
-
     private void ReadMovementInput()
     {
         moveInput = Input.GetAxis(movementAxisName);
         turnInput = Input.GetAxis(turnAxisName);
+    }
+
+    private void PlayVaryingPitchEngineSound()
+    {
+        AudioService.Instance.PlayEngineSound(moveInput, turnInput);
     }
 
     private void ProcessTankMovement()

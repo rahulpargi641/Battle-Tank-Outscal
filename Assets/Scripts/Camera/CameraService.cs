@@ -3,13 +3,11 @@ using UnityEngine;
 
 public class CameraService : MonoSingletonGeneric<CameraService>
 {
-    [SerializeField] CameraView cameraView;
-
     public List<Transform> TargetTransforms = new List<Transform>();
 
+    [SerializeField] private CameraView cameraView;
     private CameraController cameraController;
 
-    // Start is called before the first frame update
     void Start()
     {
         CameraModel cameraModel = new CameraModel(TargetTransforms);

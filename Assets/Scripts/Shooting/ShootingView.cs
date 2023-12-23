@@ -18,14 +18,12 @@ public class ShootingView : MonoBehaviour
     void Start()
     {
         model.FireButton = "Fire1";
-
         model.ChargeSpeed = (model.MaxLaunchForce - model.MinLaunchForce) / model.MaxChargeTime;
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Tank Shooting
         aimSlider.value = model.MinLaunchForce;  // by default aim slider is invisible 
 
         ProcessShooting();

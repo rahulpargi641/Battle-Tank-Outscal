@@ -6,11 +6,6 @@ public class EnemyTankModel: TankModel
   
     private EnemyTankScriptableObject enemyTankSO;
 
-   // public NavmeshAgent NavmeshAgent { private set; get; }
-
-    public Animator Animator { private set; get; }
-    public Transform PlayerTransform { private set; get; }
-
     public EnemyTankModel(EnemyTankScriptableObject enemyTankSO): base(enemyTankSO)
     {
         this.enemyTankSO = enemyTankSO;

@@ -6,13 +6,5 @@ public class EnvironmentService : MonoSingletonGeneric<EnvironmentService> // ye
 {
    [SerializeField] List<Transform> patrolPoints; // partrol points parent transform for each enemy tank
 
-    public List<Transform> PatrolPoints => patrolPoints; // lamda expression
-
-    EnvironmentController environmentController;
-
-    void Start()
-    {
-        EnvironmentModel environmentModel = new EnvironmentModel();
-        environmentController = new EnvironmentController(environmentModel);
-    }
+    public List<Transform> PatrolPoints => patrolPoints; 
 }

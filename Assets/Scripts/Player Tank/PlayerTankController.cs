@@ -16,7 +16,6 @@ public class PlayerTankController
 
     public void MoveTank(float movementInput)
     {
-
         Vector3 movement = playerTankView.transform.forward * movementInput * playerTankModel.MoveSpeed * Time.fixedDeltaTime;
         playerTankView.Rigidbody.MovePosition(playerTankView.Rigidbody.position + movement); // moves to the absolute position you give it
     }
@@ -36,18 +35,14 @@ public class PlayerTankController
         foreach(Wheel wheel in playerTankView.LeftWheels)
         {
             if(wheel)
-            {
                 wheel.transform.Rotate(wheelRotation - turnInput * playerTankModel.WheelRotationSpeed * Time.deltaTime, 0.0f, 0.0f); // rotate in x dir
-            }
         }
 
         // Move the right wheels
         foreach (Wheel wheel in playerTankView.RightWheels)
         {
             if (wheel)
-            {
                 wheel.transform.Rotate(wheelRotation + turnInput * playerTankModel.WheelRotationSpeed * Time.deltaTime, 0.0f, 0.0f); // rotate in x dir
-            }
         }
     }
 

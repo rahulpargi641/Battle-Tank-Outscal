@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,49 +7,76 @@ public class HealthView : MonoBehaviour, IDamageable
     public Image HealthFillImage;
     public Color FullHealthColor;
     public Color ZeroHealthColor;
-
-    public int health;
+    public int health; // Max health
 
     private HealthModel healthModel;
 
-
     private void OnEnable()
     {
-        healthModel = new HealthModel(health);
-      
+        InitializeHealthModel();
         SetHealthUI();
+    }
+
+    private void InitializeHealthModel()
+    {
+        healthModel = new HealthModel(health);
     }
 
     private void SetHealthUI()
     {
         HealthSlider.value = healthModel.CurrentHealth;
-        HealthFillImage.color = Color.Lerp(ZeroHealthColor, FullHealthColor, healthModel.CurrentHealth / healthModel.MaxHealth);
+        HealthFillImage.color = CalculateHealthColor();
+    }
+
+    private Color CalculateHealthColor()
+    {
+        return Color.Lerp(ZeroHealthColor, FullHealthColor, healthModel.CurrentHealth / healthModel.MaxHealth);
     }
 
     public void TakeDamage(float damage)
     {
-        healthModel.CurrentHealth -= damage;   // remove damage magic number
+        healthModel.CurrentHealth -= damage;
 
         SetHealthUI();
 
         if (healthModel.CurrentHealth <= 0f && !healthModel.IsDead)
-        { OnDeath(); }
+        {
+            OnDeath();
+        }
     }
 
     private void OnDeath()
     {
-        ParticleSystemService.Instance.SpawnParticles(new ParticleEvent(ParticleEventType.TankExplosion, transform.position));
-        AudioService.Instance.PlaySound(SoundType.TankExplosion);
+        SpawnDeathParticles();
+        PlayDeathSound();
 
+        HandleDeathEvent();
+
+        gameObject.SetActive(false);
+    }
+
+    private void SpawnDeathParticles()
+    {
+        ParticleSystemService.Instance.SpawnParticles(new ParticleEvent(ParticleEventType.TankExplosion, transform.position));
+    }
+
+    private void PlayDeathSound()
+    {
+        AudioService.Instance.PlaySound(SoundType.TankExplosion);
+    }
+
+    private void HandleDeathEvent()
+    {
         PlayerTankView player = gameObject.GetComponent<PlayerTankView>();
         EnemyAIView enemy = gameObject.GetComponent<EnemyAIView>();
 
         if (player)
+        {
             EventService.Instance.InvokePlayerDeathEvent();
-
-        else if (enemy) 
+        }
+        else if (enemy)
+        {
             EventService.Instance.InvokeEnemyDeathEvent();
-
-        gameObject.SetActive(false);
+        }
     }
 }

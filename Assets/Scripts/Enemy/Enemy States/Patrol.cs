@@ -1,22 +1,32 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Patrol : State
+public class Patrol : EnemyState
 {
-    int currentIndex = 0;
-    int nPatrolPoints;
+    private int currentIndex = 0;
+    private int nPatrolPoints;
 
-    public Patrol(EnemyAIView enemyAIView, NavMeshAgent navMeshAgent, Animator animator, Transform playerTransform) 
+    public Patrol(EnemyAIView enemyAIView, NavMeshAgent navMeshAgent, Animator animator, Transform playerTransform)
         : base(enemyAIView, navMeshAgent, animator, playerTransform)
     {
         state = EState.Patrol;
+        InitializePatrolParameters();
+    }
 
+    private void InitializePatrolParameters()
+    {
         navMeshAgent.speed = 2;
         navMeshAgent.isStopped = false;
         nPatrolPoints = enemyAIView.PatrolPoints.Length;
     }
 
     public override void Enter()
+    {
+        DetermineClosestPatrolPoint();
+        base.Enter();
+    }
+
+    private void DetermineClosestPatrolPoint()
     {
         float lastDist = Mathf.Infinity;
         for (int i = 0; i < nPatrolPoints; i++)
@@ -29,33 +39,40 @@ public class Patrol : State
                 lastDist = distance;
             }
         }
-        //animator.SetTrigger("IsWalking");
-        base.Enter();
     }
 
     public override void Update()
     {
-        //base.Update();
-        if (!navMeshAgent.pathPending && navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
-        {
-            if (currentIndex >= nPatrolPoints)
-                currentIndex = 0;
+        base.Update();
 
-            Vector3 patrolPoint = enemyAIView.PatrolPoints[currentIndex].position;
-            UpdatePath(patrolPoint);
-            currentIndex++;
-        }
+        HandlePatrolMovement();
 
         if (CanSeePlayer())
         {
-            nextState = new Pursue(enemyAIView, navMeshAgent, animator, playerTransform);
-            stage = EStage.Exit;
+            TransitionToState<Pursue>();
         }
+    }
+
+    private void HandlePatrolMovement()
+    {
+        if (!navMeshAgent.pathPending && navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
+        {
+            UpdateCurrentPatrolPoint();
+        }
+    }
+
+    private void UpdateCurrentPatrolPoint()
+    {
+        if (currentIndex >= nPatrolPoints)
+            currentIndex = 0;
+
+        Vector3 patrolPoint = enemyAIView.PatrolPoints[currentIndex].position;
+        UpdatePath(patrolPoint);
+        currentIndex++;
     }
 
     public override void Exit()
     {
-        //animator.ResetTrigger("IsWalking");
         base.Exit();
     }
 }

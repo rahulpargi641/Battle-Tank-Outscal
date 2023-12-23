@@ -1,29 +1,27 @@
-using System;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyAIView : MonoBehaviour
 {
+    public Transform[] PatrolPoints => patrolPoints;
+    public Transform FireTransform => fireTransform;
     public EnemyTankController Controller { private get; set; }
 
-    [SerializeField] Transform playerTransform;
-    [SerializeField] Transform fireTransform;
-    [SerializeField] Transform[] patrolPoints;
-    public Transform[] PatrolPoints => patrolPoints;
+    [SerializeField] private Transform playerTransform;
+    [SerializeField] private Transform fireTransform;
+    [SerializeField] private Transform[] patrolPoints;
+  
+    private NavMeshAgent navMeshAgent;
+    private Animator animator;
+    private EnemyState currentState;
 
-    public Transform FireTransform => fireTransform;
-
-    NavMeshAgent navMeshAgent;
-    Animator animator;
-    State currentState;
-
-    void Awake()
+    private void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
     }
 
-    internal void OnEnable()
+    private void OnEnable()
     {
         gameObject.SetActive(true);
     }
@@ -33,15 +31,19 @@ public class EnemyAIView : MonoBehaviour
         currentState = new Idle(this, navMeshAgent, animator, playerTransform);
     }
 
-    void Update()
+    private void Update()
     {
         if (currentState != null)
+        {
             currentState = currentState.Process();
+        }
         else
-            Debug.Log("Current state null");
+        {
+            Debug.Log("Current state is null");
+        }
     }
 
-    public void OnDisable()
+    private void OnDisable()
     {
         gameObject.SetActive(false);
     }

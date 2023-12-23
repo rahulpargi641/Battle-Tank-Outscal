@@ -2,8 +2,11 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Pursue : State
-{ 
+public class Pursue : EnemyState
+{
+    private const float AttackStoppingDistance = 1.5f;
+    private const int CameraRemovalDelayMilliseconds = 6000;
+
     public Pursue(EnemyAIView enemyAIView, NavMeshAgent navMeshAgent, Animator animator, Transform playerTransform)
         : base(enemyAIView, navMeshAgent, animator, playerTransform)
     {
@@ -15,41 +18,49 @@ public class Pursue : State
 
     public override void Enter()
     {
-        //animator.SetTrigger("IsRunning");
         CameraService.Instance.AddTarget(enemyAIView.gameObject.transform);
         base.Enter();
     }
 
     public override void Update()
     {
+        UpdatePathToPlayer();
+
+        if (IsAttackingPlayer())
+        {
+            TransitionToState<Attack>();
+        }
+        else if (ShouldReturnToPatrol())
+        {
+            _ = RemoveCameraAsync();
+            TransitionToState<Patrol>();
+        }
+    }
+
+    private void UpdatePathToPlayer()
+    {
         //navMeshAgent.SetDestination(playerTransform.position);
         UpdatePath(playerTransform.position);
-        if (navMeshAgent.hasPath) // means following the player       
-        {
-            if (CanAttackPlayer())
-            {
-                nextState = new Attack(enemyAIView, navMeshAgent, animator, playerTransform);
-                stage = EStage.Exit;
-            }
-            else if (!CanSeePlayer() || !navMeshAgent.pathPending && navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
-            {
-                _ = RemoveCameraAsync();
-                nextState = new Patrol(enemyAIView, navMeshAgent, animator, playerTransform);
-                stage = EStage.Exit;
-            }
-        }
+    }
+
+    private bool IsAttackingPlayer()
+    {
+        return CanAttackPlayer();
+    }
+
+    private bool ShouldReturnToPatrol()
+    {
+        return !CanSeePlayer() || (!navMeshAgent.pathPending && navMeshAgent.remainingDistance <= AttackStoppingDistance);
     }
 
     private async Task RemoveCameraAsync()
     {
-        await Task.Delay(6000);
-
+        await Task.Delay(CameraRemovalDelayMilliseconds);
         CameraService.Instance.RemoveTarget(enemyAIView.gameObject.transform);
     }
 
     public override void Exit()
     {
-        //animator.ResetTrigger("IsRunning");
         base.Exit();
     }
 }

@@ -52,7 +52,6 @@ public class ShellView : MonoBehaviour
         float relativeDistance = (model.ExplosionRadius - explosionDistance) / model.ExplosionRadius;
 
         float damage = relativeDistance * model.MaxDamage;
-
         damage = Mathf.Max(0, damage);
         return damage;
     }

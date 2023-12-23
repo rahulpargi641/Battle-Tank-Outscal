@@ -1,56 +1,64 @@
+using System;
 using UnityEngine;
 
 public class CameraController
 {
-    private CameraModel model;
-    private CameraView view;
+    private readonly CameraModel model;
+    private readonly CameraView view;
 
     public CameraController(CameraModel model, CameraView view)
     {
-        this.model = model;
-        this.view = view;
+        this.model = model ?? throw new ArgumentNullException(nameof(model));
+        this.view = view ?? throw new ArgumentNullException(nameof(view));
 
         this.view.Controller = this;
-
-        //model.TargetTransforms = view.TargetTransforms;
     }
 
     public void Move()
     {
-         FindAveragePosition();
+        FindAveragePosition();
+        SmoothDampPosition();
+    }
 
-        //view.transform.position = Vector3.SmoothDamp(view.transform.position, model.m_DesiredPosition, ref model.m_MoveVelocity, model.m_DampTime);
+    private void FindAveragePosition()
+    {
+        Vector3 averagePos = CalculateAveragePosition();
+        model.DesiredPosition = new Vector3(averagePos.x, view.transform.position.y, averagePos.z);
+    }
+
+    private void SmoothDampPosition()
+    {
         Vector3 tempMoveVelocity = model.MoveVelocity;
         view.transform.position = Vector3.SmoothDamp(view.transform.position, model.DesiredPosition, ref tempMoveVelocity, model.DampTime);
         model.MoveVelocity = tempMoveVelocity;
     }
 
-    private void FindAveragePosition()
+    private Vector3 CalculateAveragePosition()
     {
-        Vector3 averagePos = new Vector3();
+        Vector3 averagePos = Vector3.zero;
         int nTargets = 0;
-        
-        for(int i = 0; i < model.TargetTransforms.Count; i++)
-        {
-            if (! model.TargetTransforms[i].gameObject.activeSelf)
-                continue;
 
-            averagePos += model.TargetTransforms[i].position;
-            nTargets++;
+        foreach (var targetTransform in model.TargetTransforms)
+        {
+            if (targetTransform.gameObject.activeSelf)
+            {
+                averagePos += targetTransform.position;
+                nTargets++;
+            }
         }
 
-        if (nTargets > 0)
-            averagePos /= nTargets;
-        averagePos.y = view.transform.position.y; // Update this
-
-        model.DesiredPosition = averagePos;
+        return nTargets > 0 ? averagePos / nTargets : Vector3.zero;
     }
 
     public void Zoom()
     {
         float requiredSize = FindRequiredSize();
-        float tempZoomSpeed = model.ZoomSpeed;
+        SmoothDampZoom(requiredSize);
+    }
 
+    private void SmoothDampZoom(float requiredSize)
+    {
+        float tempZoomSpeed = model.ZoomSpeed;
         view.Camera.orthographicSize = Mathf.SmoothDamp(view.Camera.orthographicSize, requiredSize, ref tempZoomSpeed, model.DampTime);
         model.ZoomSpeed = tempZoomSpeed;
     }
@@ -61,20 +69,20 @@ public class CameraController
 
         float size = 0f;
 
-        for (int i = 0; i < model.TargetTransforms.Count; i++)
+        foreach (var targetTransform in model.TargetTransforms)
         {
-            if (! model.TargetTransforms[i].gameObject.activeSelf)
-                continue;
+            if (targetTransform.gameObject.activeSelf)
+            {
+                Vector3 targetLocalPos = view.transform.InverseTransformPoint(targetTransform.position);
+                Vector3 desiredPosToTarget = targetLocalPos - desiredLocaPos;
 
-            Vector3 targetLocalPos = view.transform.InverseTransformPoint(model.TargetTransforms[i].position);
-            Vector3 desiredPosToTarget = targetLocalPos - desiredLocaPos;
-
-            size = Mathf.Max(size, Mathf.Abs(desiredPosToTarget.y));
-            size = Mathf.Max(size, Mathf.Abs(desiredPosToTarget.x) / view.Camera.aspect);
+                size = Mathf.Max(size, Mathf.Abs(desiredPosToTarget.y));
+                size = Mathf.Max(size, Mathf.Abs(desiredPosToTarget.x) / view.Camera.aspect);
+            }
         }
 
         size += model.ScreenEdgeBuffer;
-        size = Mathf.Max(size, model.MinSize); // to make sure we're not too zoomed in
+        size = Mathf.Max(size, model.MinSize);
         return size;
     }
 
@@ -87,25 +95,24 @@ public class CameraController
 
     public void AddTarget(Transform transform)
     {
-        if(! model.TargetTransforms.Contains(transform))
+        if (!model.TargetTransforms.Contains(transform))
         {
             model.TargetTransforms.Add(transform);
-            //Debug.Log("Target transform added name" + transform.gameObject.name);
             UpdateCameraTargets();
         }
     }
+
     public void RemoveTarget(Transform transform)
     {
         if (model.TargetTransforms.Contains(transform))
         {
             model.TargetTransforms.Remove(transform);
-            //Debug.Log("Target transform removed name: " + transform.gameObject.name);
             UpdateCameraTargets();
         }
     }
 
     private void UpdateCameraTargets()
     {
-      // view.TargetTransforms = model.TargetTransforms;
+        // Update view.TargetTransforms 
     }
 }

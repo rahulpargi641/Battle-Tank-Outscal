@@ -28,30 +28,31 @@ public class AudioService : MonoSingletonGeneric<AudioService>
         AudioClip engineIdling = soundDictionary[SoundType.EngineIdle].AudioClip;
         AudioClip engineDriving = soundDictionary[SoundType.EngineDriving].AudioClip;
 
-        if (engineIdling != null && engineIdling && movementAudioSrc != null)
+        if (engineIdling != null && engineDriving != null && movementAudioSrc != null)
         {
-            if (Mathf.Abs(movementInput) < 0.1f && Mathf.Abs(turnInput) < 0.1f)
-            {
-                if (movementAudioSrc.clip == engineDriving)
-                {
-                    movementAudioSrc.clip = engineIdling;
-                    movementAudioSrc.pitch = GetVariablePitch(movementAudioSrc);
-                    movementAudioSrc.Play();
-                }
-            }
+            if (IsIdle(movementInput, turnInput))
+                SwitchAudioClip(engineDriving, engineIdling);
             else
-            {
-                if (movementAudioSrc.clip == engineIdling)
-                {
-                    movementAudioSrc.clip = engineDriving;
-                    movementAudioSrc.pitch = GetVariablePitch(movementAudioSrc);
-                    movementAudioSrc.Play();
-                }
-            }
+                SwitchAudioClip(engineIdling, engineDriving);
         }
         else
         {
             Debug.LogError("Audio Source or clip not found for Engine Sound: ");
+        }
+    }
+
+    private bool IsIdle(float movementInput, float turnInput)
+    {
+        return Mathf.Abs(movementInput) < 0.1f && Mathf.Abs(turnInput) < 0.1f;
+    }
+
+    private void SwitchAudioClip(AudioClip fromClip, AudioClip toClip)
+    {
+        if (movementAudioSrc.clip == fromClip)
+        {
+            movementAudioSrc.clip = toClip;
+            movementAudioSrc.pitch = GetVariablePitch(movementAudioSrc);
+            movementAudioSrc.Play();
         }
     }
 

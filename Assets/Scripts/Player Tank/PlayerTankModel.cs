@@ -3,7 +3,6 @@ using UnityEngine;
 public class PlayerTankModel: TankModel
 {
     public PlayerTankController PlayerTankController { private get;  set; }
-    //TankType tankType { get; }
     public float MoveSpeed { get; }
     public float MovementSpeedLive { get { return playerTankSO.MoveSpeed; } }
     public float TurnSpeed { get; }
@@ -19,7 +18,6 @@ public class PlayerTankModel: TankModel
         TurnSpeed = playerTankSO.TurnSpeed;
 
         WheelRotationSpeed = playerTankSO.wheelRotationSpeed;
-
         TurretSpinSpeed = playerTankSO.TurretSpinSpeed;
     }
 }

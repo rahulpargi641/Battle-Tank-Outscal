@@ -5,73 +5,97 @@ using UnityEngine.UI;
 
 public class LevelPresenter : MonoBehaviour
 {
-    [SerializeField] GameObject pauseScreen;
-    [SerializeField] Button restartButton;
-    [SerializeField] Button quitButton;
+    [SerializeField] private GameObject pauseScreen;
+    [SerializeField] private Button restartButton;
+    [SerializeField] private Button quitButton;
 
     private bool isPaused = false;
-
     private LevelModel model;
 
     private void Awake()
     {
         model = new LevelModel();
+        InitializeUI();
+    }
 
+    private void InitializeUI()
+    {
         restartButton.onClick.AddListener(RestartGame);
         quitButton.onClick.AddListener(QuitGame);
-        pauseScreen.SetActive(false);
+
+        SetPauseScreenActive(false);
     }
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        EventService.Instance.onLevelCompleteAction += LevelComplete;
-
-        EventService.Instance.OnPlayerDeathAction += GameOver;
-
-        AudioService.Instance.PlaySound(SoundType.BackgroundMusic);
+        SubscribeToEvents();
+        PlayBackgroundMusic();
     }
 
     private void OnDestroy()
     {
-        EventService.Instance.onLevelCompleteAction -= LevelComplete;
+        UnsubscribeFromEvents();
+    }
 
+    private void SubscribeToEvents()
+    {
+        EventService.Instance.onLevelCompleteAction += LevelComplete;
+        EventService.Instance.OnPlayerDeathAction += GameOver;
+    }
+
+    private void UnsubscribeFromEvents()
+    {
+        EventService.Instance.onLevelCompleteAction -= LevelComplete;
         EventService.Instance.OnPlayerDeathAction -= GameOver;
+    }
+
+    private void PlayBackgroundMusic()
+    {
+        AudioService.Instance.PlaySound(SoundType.BackgroundMusic);
     }
 
     private void Update()
     {
+        HandlePauseInput();
+    }
+
+    private void HandlePauseInput()
+    {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (isPaused)
-            {
                 ResumeGame();
-            }
             else
-            {
                 PauseGame();
-            }
         }
     }
 
     private void PauseGame()
     {
         isPaused = true;
-        pauseScreen.SetActive(true);
+        SetPauseScreenActive(true);
         Time.timeScale = 0; // Pause time
-
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
+        SetCursorVisibleAndLocked(false);
     }
 
     private void ResumeGame()
     {
         isPaused = false;
-        pauseScreen.SetActive(false);
+        SetPauseScreenActive(false);
         Time.timeScale = 1; // Resume time
+        SetCursorVisibleAndLocked(true);
+    }
 
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+    private void SetPauseScreenActive(bool isActive)
+    {
+        pauseScreen.SetActive(isActive);
+    }
+
+    private void SetCursorVisibleAndLocked(bool isVisibleAndLocked)
+    {
+        Cursor.visible = isVisibleAndLocked;
+        Cursor.lockState = isVisibleAndLocked ? CursorLockMode.Locked : CursorLockMode.None;
     }
 
     private void RestartGame()
@@ -81,30 +105,23 @@ public class LevelPresenter : MonoBehaviour
 
     private void QuitGame()
     {
-        if (Application.isPlaying)
-        {
-            Application.Quit(); // Quit the game directly
-        }
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false; // Stop playing in the editor
-#endif
+        Application.Quit();
         AudioService.Instance.PlaySound(SoundType.ButtonClick);
     }
 
     private void LevelComplete()
     {
-        StartCoroutine(LoadLevelCompleteScene());
+        StartCoroutine(LoadNextLevel());
     }
 
-    private IEnumerator LoadLevelCompleteScene()
+    private IEnumerator LoadNextLevel()
     {
         yield return new WaitForSecondsRealtime(model.LevelLoadDelay);
-
-        AudioService.Instance.StopEngineSound();
-
+        StopEngineSound();
         int levelCompleteIndex = SceneManager.GetActiveScene().buildIndex + 1;
         SceneManager.LoadScene(levelCompleteIndex);
     }
+
     private void GameOver()
     {
         StartCoroutine(LoadGameOverScene());
@@ -113,12 +130,13 @@ public class LevelPresenter : MonoBehaviour
     private IEnumerator LoadGameOverScene()
     {
         yield return new WaitForSecondsRealtime(model.LevelLoadDelay);
-
-        AudioService.Instance.StopEngineSound();
-
+        StopEngineSound();
         int gameOverSceneIndex = SceneManager.sceneCountInBuildSettings - 1;
         SceneManager.LoadScene(gameOverSceneIndex);
     }
+
+    private void StopEngineSound()
+    {
+        AudioService.Instance.StopEngineSound();
+    }
 }
-
-

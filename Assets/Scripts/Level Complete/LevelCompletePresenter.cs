@@ -4,42 +4,54 @@ using UnityEngine.UI;
 
 public class LevelCompletePresenter : MonoBehaviour
 {
-    [SerializeField] Button playAgainButton;
-    [SerializeField] Button quitButton;
-
-    private GameOverModel model;
+    [SerializeField] private Button playAgainButton;
+    [SerializeField] private Button quitButton;
 
     private void Awake()
     {
-        model = new GameOverModel();
+        InitializeUI();
+    }
 
+    private void InitializeUI()
+    {
         playAgainButton.onClick.AddListener(PlayAgain);
         quitButton.onClick.AddListener(QuitGame);
     }
 
     private void Start()
     {
-        AudioService.Instance.StopSound(SoundType.BackgroundMusic);
+        StopBackgroundMusic();
     }
 
     private void PlayAgain()
     {
-        int prevSceneIndex = SceneManager.GetActiveScene().buildIndex - 1;
-        if (prevSceneIndex < 1)
-            prevSceneIndex = 1;
+        int previousSceneIndex = CalculatePreviousSceneIndex();
+        SceneManager.LoadScene(previousSceneIndex);
+    }
 
-        SceneManager.LoadScene(prevSceneIndex);
+    private int CalculatePreviousSceneIndex()
+    {
+        int previousSceneIndex = SceneManager.GetActiveScene().buildIndex - 1;
+        if (previousSceneIndex < 1)
+        {
+            previousSceneIndex = 1;
+        }
+        return previousSceneIndex;
     }
 
     private void QuitGame()
     {
-        if (Application.isPlaying)
-        {
-            Application.Quit(); // Quit the game directly
-        }
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false; // Stop playing in the editor
-#endif
+        Application.Quit();
+        PlayButtonClickSound();
+    }
+
+    private void StopBackgroundMusic()
+    {
+        AudioService.Instance.StopSound(SoundType.BackgroundMusic);
+    }
+
+    private void PlayButtonClickSound()
+    {
         AudioService.Instance.PlaySound(SoundType.ButtonClick);
     }
 }

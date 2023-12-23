@@ -3,8 +3,8 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public enum EState
-{ 
-    Idle, Patrol, Pursue, Attack 
+{
+    Idle, Patrol, Pursue, Attack
 };
 
 public enum EStage
@@ -12,30 +12,28 @@ public enum EStage
     Enter, Update, Exit
 };
 
-public class State
+public class EnemyState
 {
-    public EState state;
+    protected EState state;
     protected EStage stage;
     protected EnemyAIView enemyAIView;
     protected NavMeshAgent navMeshAgent;
-
     protected Animator animator;
     protected Transform playerTransform;
-    protected State nextState;
+    protected EnemyState nextState;
 
-    private float visibleDist = 17.0f; // 10f
-    private float visibleAngle = 90.0f; // 30f
-    private float shootDist = 14.0f; // 7f
-
+    private float visibleDist = 17.0f;
+    private float visibleAngle = 90.0f;
+    private float shootDist = 14.0f;
     private float pathUpdateDelay = 0.2f;
     private float pathUpdateDeadline;
 
-    public State(EnemyAIView enemyAIView, NavMeshAgent navMeshAgent, Animator animator, Transform playerTransform)
+    public EnemyState(EnemyAIView enemyAIView, NavMeshAgent navMeshAgent, Animator animator, Transform playerTransform)
     {
-        this.enemyAIView = enemyAIView;
-        this.navMeshAgent = navMeshAgent;
-        this.animator = animator;
-        this.playerTransform = playerTransform;
+        this.enemyAIView = enemyAIView ?? throw new ArgumentNullException(nameof(enemyAIView));
+        this.navMeshAgent = navMeshAgent ?? throw new ArgumentNullException(nameof(navMeshAgent));
+        this.animator = animator ?? throw new ArgumentNullException(nameof(animator));
+        this.playerTransform = playerTransform ?? throw new ArgumentNullException(nameof(playerTransform));
 
         EventService.Instance.OnEnemyDeathAction += EnemyDestroyed;
     }
@@ -44,17 +42,23 @@ public class State
     public virtual void Update() { stage = EStage.Update; }
     public virtual void Exit() { stage = EStage.Exit; }
 
-    // get run from outside and progress state through each of the different stages
-    public State Process()
+    public EnemyState Process()
+    {
+        ProcessStage();
+        return stage == EStage.Exit ? nextState : this;
+    }
+
+    private void ProcessStage()
     {
         if (stage == EStage.Enter) Enter();
         if (stage == EStage.Update) Update();
-        if(stage == EStage.Exit)
-        {
-            Exit();
-            return nextState;
-        }
-        return this; // we keep returning the same state
+        if (stage == EStage.Exit) Exit();
+    }
+
+    protected void TransitionToState<T>() where T : EnemyState
+    {
+        nextState = Activator.CreateInstance(typeof(T), enemyAIView, navMeshAgent, animator, playerTransform) as T;
+        stage = EStage.Exit;
     }
 
     protected void UpdatePath(Vector3 targetPoint)
@@ -72,25 +76,18 @@ public class State
         Vector3 playerDirection = playerTransform.position - enemyAIView.transform.position;
         float facingAngle = Vector3.Angle(playerDirection, enemyAIView.transform.forward);
 
-        if (playerDirection.magnitude < visibleDist && facingAngle < visibleAngle)
-            return true;
-        else
-            return false;
+        return playerDirection.magnitude < visibleDist && facingAngle < visibleAngle;
     }
 
     public bool CanAttackPlayer()
     {
         Vector3 playerDirection = playerTransform.position - enemyAIView.transform.position;
-
-        if (playerDirection.magnitude < shootDist)
-            return true;
-        else
-            return false;
+        return playerDirection.magnitude < shootDist;
     }
 
-    protected virtual void EnemyDestroyed() // stop processing enemy state machine
+    protected virtual void EnemyDestroyed()
     {
-        //nextState = null;
         Debug.Log("Enemy Destroyed");
+        // gets implemented in the attack state to stop firing when destroyed
     }
 }
